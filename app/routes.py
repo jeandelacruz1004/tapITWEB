@@ -13,6 +13,9 @@ def welcome():
         return redirect("home")
 
     return render_template("index.html")
+@tap.route("/admin")
+def admin():
+    return render_template("admin.html")
 
 
 @tap.route("/signup", methods=["GET", "POST"])
