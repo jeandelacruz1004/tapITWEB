@@ -7,14 +7,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<!-- VENDOR CSS -->
-	<link rel="stylesheet" href="static/css/bootstrap.min.css">
-	<link rel="stylesheet" href="static/css/font-awesome.min.css">
-	<link rel="stylesheet" href="static/css/style.css">
-	<link rel="stylesheet" href="static/css/chartist-custom.css">
+	<link href='{{ url_for("static", filename="css/bootstrap.min.css") }}' rel="stylesheet" />
+	<link href='{{ url_for("static", filename="css/font-awesome.min.css") }}' rel="stylesheet" />
+	<link href='{{ url_for("static", filename="css/style.css") }}' rel="stylesheet" />
+	<link href='{{ url_for("static", filename="css/chartist-custom.css") }}' rel="stylesheet" />
+	
 	<!-- MAIN CSS -->
-	<link rel="stylesheet" href="static/css/main.css">
+	<link href='{{ url_for("static", filename="css/main.css") }}' rel="stylesheet" />
+	
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-	<link rel="stylesheet" href="static/css/demo.css">
+	<link href='{{ url_for("static", filename="css/demo.css") }}' rel="stylesheet" />
+	
 	<!-- GOOGLE FONTS -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     
@@ -164,10 +167,7 @@
 	<!-- Javascript -->
 	<script src="static/jquery/jquery.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
-	<script src="static/js/jquery.slimscroll.min.js"></script>
-	<script src="static/js/jquery.easypiechart.min.js"></script>
-	<script src="static/js/chartist.min.js"></script>
-	<script src="static/js/klorofil-common.js"></script>
+	
 	<script>
 	$(function() {
 		var data, options;

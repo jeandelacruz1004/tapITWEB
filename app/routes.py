@@ -17,6 +17,10 @@ def welcome():
 def admin():
     return render_template("admin.html")
 
+@tap.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
 
 @tap.route("/signup", methods=["GET", "POST"])
 def signup():
