@@ -22,6 +22,12 @@ def admin():
 @tap.route("/adminprof")
 def adminprof():
     return render_template("adminprofile.html")
+@tap.route("/logout")
+def logout():
+    print('sulod')
+    session.pop('username', None)
+    print("beeplop")
+    return redirect('index.html')
 
 
 @tap.route("/signup", methods=["GET", "POST"])
