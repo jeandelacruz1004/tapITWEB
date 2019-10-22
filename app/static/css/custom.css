@@ -1,5 +1,10 @@
 
 
+.nav-text{
+    color: white !important;
+    padding: .5rem .5rem;
+}
+
 .custDiv {
     flex-direction: column !important;
     align-items: center !important;
@@ -15,7 +20,7 @@
     background-color: #008CBA;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 11px 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -30,44 +35,83 @@
 }
 
 .form-inline {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 
 .form-inline label {
-  margin: 5px 10px 5px 0;
+    margin: 5px 10px 5px 0;
 }
 
 .form-inline input {
-  vertical-align: middle;
-  margin: 5px 10px 5px 0;
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #ddd;
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
 }
 
 .form-inline button {
-  padding: 10px 20px;
-  background-color: dodgerblue;
-  border: 1px solid #ddd;
-  color: white;
-  cursor: pointer;
+    padding: 10px 20px;
+    background-color: dodgerblue;
+    border: 1px solid #ddd;
+    color: white;
+    cursor: pointer;
 }
 
 .form-inline button:hover {
-  background-color: royalblue;
+    background-color: royalblue;
 }
 
 @media (max-width: 800px) {
-  .form-inline input {
+    .form-inline input {
     margin: 10px 0;
-  }
+    }
 
   .form-inline {
     flex-direction: column;
     align-items: stretch;
-  }
+    }
 }
 
+.imgLogo{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
 
+.imgLogo:hover {
+    animation: shake .1s;
+    animation-duration: 1s;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.modal-login {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 0rem 1rem;
+}
+
+.modal-login-footer{
+    align-items: center;
+    padding: 1rem 1rem;
+    border-top: 0 solid #dee2e6;
+    border-bottom-right-radius: .75rem;
+    border-bottom-left-radius: .75rem;
+}
