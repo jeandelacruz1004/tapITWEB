@@ -13,8 +13,6 @@ def welcome():
         return redirect("home")
 
     return render_template("index.html")
-
-
 @tap.route("/signup", methods=["GET", "POST"])
 def signup():
     if "app" in session:
@@ -39,6 +37,7 @@ def signup():
 
     return render_template("signup.html")
 
+#User
 @tap.route("/dashboardUser", methods=["GET", "POST"])
 def dashboardUser():
     if "app" in session:
@@ -46,9 +45,26 @@ def dashboardUser():
 
     return render_template("dashboardUser.html")
 
+
+#admin
+@tap.route("/admin")
+def admin():
+    return render_template("admin.html")
+
+@tap.route("/adminprof")
+def adminprof():
+    return render_template("adminprofile.html")
 @tap.route("/logout")
 def logout():
     print('sulod')
     session.pop('username', None)
     print("beeplop")
     return render_template("index.html")
+
+@tap.route("/table")
+def table():
+    return render_template("table.html")
+
+@tap.route("/events")
+def events():
+    return render_template("events.html")
