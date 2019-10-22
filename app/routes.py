@@ -45,3 +45,10 @@ def dashboardUser():
         return redirect("dashboardUser")
 
     return render_template("dashboardUser.html")
+
+@tap.route("/logout")
+def logout():
+    print('sulod')
+    session.pop('username', None)
+    print("beeplop")
+    return render_template("index.html")
