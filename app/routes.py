@@ -53,3 +53,10 @@ def logout():
     print("beeplop")
     return render_template("index.html")
 
+@tap.route("/table")
+def table():
+    return render_template("table.html")
+
+@tap.route("/events")
+def events():
+    return render_template("events.html")
