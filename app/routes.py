@@ -13,6 +13,13 @@ def welcome():
         return redirect("home")
 
     return render_template("index.html")
+@tap.route("/admin")
+def admin():
+    return render_template("admin.html")
+
+@tap.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
 
 
 @tap.route("/login", methods=["GET","POST"])
