@@ -37,6 +37,25 @@ def signup():
 
     return render_template("signup.html")
 
+@tap.route("/login", methods=["GET", "POST"])
+def login():
+    if "app" in session:
+        return redirect("home")
+
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        login = requests.post("http://127.0.0.1:5000/user/login",
+                               data={'email': email,
+                                    'password': password})
+        if login.status_code == 200:
+            return redirect(url_for('admin'))
+        else:
+            return redirect(url_for("login"))
+
+
+    return render_template("admin.html")
 
 #admin
 @tap.route("/admin",methods=["GET","POST"])
