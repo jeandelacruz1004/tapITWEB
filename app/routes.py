@@ -15,6 +15,14 @@ def welcome():
     return render_template("index.html")
 
 
+@tap.route("/login", methods=["GET","POST"])
+def login():
+    if "app" in session:
+        return redirect("home")
+
+    return render_template("login.html")
+
+
 @tap.route("/signup", methods=["GET", "POST"])
 def signup():
     if "app" in session:
@@ -35,6 +43,6 @@ def signup():
                                      'email': email,
                                      'rfID': rfID,
                                      'password': password})
-        return redirect(url_for('welcome'))
+        return redirect(url_for('login'))
 
     return render_template("signup.html")
