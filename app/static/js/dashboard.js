@@ -1,48 +1,29 @@
-"use strict";
+$(document).ready(function(){
+	$('[data-toggle="offcanvas"]').click(function(){
+		$("#navigation").toggleClass("hidden-xs");
+	});
+ });
+ 
+ 
+ // data-* attributes to scan when populating modal values
+var ATTRIBUTES = ['myvalue', 'myvar', 'bb'];
 
-var Dashboard = function () {
-	var global = {
-		tooltipOptions: {
-			placement: "right"
-		},
-		menuClass: ".c-menu"
-	};
-
-	var menuChangeActive = function menuChangeActive(el) {
-		var hasSubmenu = $(el).hasClass("has-submenu");
-		$(global.menuClass + " .is-active").removeClass("is-active");
-		$(el).addClass("is-active");
-
-		// if (hasSubmenu) {
-		// 	$(el).find("ul").slideDown();
-		// }
-	};
-
-	var sidebarChangeWidth = function sidebarChangeWidth() {
-		var $menuItemsTitle = $("li .menu-item__title");
-
-		$("body").toggleClass("sidebar-is-reduced sidebar-is-expanded");
-		$(".hamburger-toggle").toggleClass("is-opened");
-
-		if ($("body").hasClass("sidebar-is-expanded")) {
-			$('[data-toggle="tooltip"]').tooltip("destroy");
-		} else {
-			$('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
-		}
-	};
-
-	return {
-		init: function init() {
-			$(".js-hamburger").on("click", sidebarChangeWidth);
-
-			$(".js-menu li").on("click", function (e) {
-				menuChangeActive(e.currentTarget);
-			});
-
-			$('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
-		}
-	};
-}();
-
-Dashboard.init();
-//# sourceURL=pen.js
+$('[data-toggle="modal"]').on('click', function (e) {
+  // convert target (e.g. the button) to jquery object
+  var $target = $(e.target);
+  // modal targeted by the button
+  var modalSelector = $target.data('target');
+  
+  // iterate over each possible data-* attribute
+  ATTRIBUTES.forEach(function (attributeName) {
+    // retrieve the dom element corresponding to current attribute
+    var $modalAttribute = $(modalSelector + ' #modal-' + attributeName);
+    var dataValue = $target.data(attributeName);
+    
+    // if the attribute value is empty, $target.data() will return undefined.
+    // In JS boolean expressions return operands and are not coerced into
+    // booleans. That way is dataValue is undefined, the left part of the following
+    // Boolean expression evaluate to false and the empty string will be returned
+    $modalAttribute.text(dataValue || '');
+  });
+});

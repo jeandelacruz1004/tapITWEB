@@ -38,12 +38,21 @@ def signup():
     return render_template("signup.html")
 
 #User
-@tap.route("/dashboardUser", methods=["GET", "POST"])
+@tap.route("/userdashboard", methods=["GET", "POST"])
 def dashboardUser():
     if "app" in session:
-        return redirect("dashboardUser")
+        return redirect("userdashboard")
 
-    return render_template("dashboardUser.html")
+    return render_template("userdashboard.html")
+
+@tap.route("/usersettings", methods=["GET", "POST"])
+def usersettings():
+    if "app" in session:
+        return redirect("usersettings")
+
+    return render_template("usersettings.html")
+
+
 
 
 #admin
