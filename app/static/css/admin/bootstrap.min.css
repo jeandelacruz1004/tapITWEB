@@ -1072,7 +1072,8 @@ th {
 :before {
  -webkit-box-sizing:border-box;
  -moz-box-sizing:border-box;
- box-sizing:border-box
+ box-sizing:border-box;
+ 
 }
 html {
  font-size:10px;
@@ -1842,7 +1843,7 @@ pre code {
  .col-sm-7,
  .col-sm-8,
  .col-sm-9 {
-  float:left
+  float:right
  }
  .col-sm-12 {
   width:100%
@@ -1863,7 +1864,7 @@ pre code {
   width:58.33333333%
  }
  .col-sm-6 {
-  width:50%
+  width:22%
  }
  .col-sm-5 {
   width:41.66666667%
@@ -2597,7 +2598,7 @@ label {
  display:inline-block;
  max-width:100%;
  margin-bottom:5px;
- font-weight:700
+ font-weight:708
 }
 input[type=search] {
  -webkit-box-sizing:border-box;

@@ -10,7 +10,9 @@
 body {
 	background: #ecf1f5;
 	font:14px "Open Sans", sans-serif; 
-	text-align:center;
+	text-align:left;
+  
+  
 }
 
 .tile{
@@ -23,6 +25,19 @@ body {
   	margin: 10px 5px;
 
 }
+
+.tiles{
+    width: 100%;
+    height: 100%;
+	background:#fff;
+	border-radius:5px;
+	box-shadow:0px 2px 3px -1px rgba(151, 171, 187, 0.7);
+	float:left;
+  	transform-style: preserve-3d;
+  	margin: 10px 5px;
+
+}
+
 
 .header{
 	border-bottom:1px solid #ebeff2;
@@ -108,6 +123,7 @@ div.footer a.Cbtn{
 	font-weight: bold;
 	text-decoration: none;
 	border-radius: 3px;
+  
 }
 
 div.footer a.Cbtn-primary{
@@ -119,6 +135,15 @@ div.footer a.Cbtn-primary:hover{
 	background-color: #7dbef5;
 }
 
+div.footer a.Cbtn-info{
+	background-color: #9b59b6;
+	color: #FFF;
+}
+
+div.footer a.Cbtn-info:hover{
+	background-color: ##9b59b6;
+}
+
 div.footer a.Cbtn-danger{
 	background-color: #fc5a5a;
 	color: #FFF;
@@ -127,17 +152,22 @@ div.footer a.Cbtn-danger{
 div.footer a.Cbtn-danger:hover{
 	background-color: #fd7676;
 }
+
+
+
 </style>
 
 
 <!-- MAIN -->
 <div class="main">
+    <div class="col-sm-6">
+        <a href="#addEventModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Restaurant</span></a>
+      </div>
         <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <div class="container-fluid">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="main-content"></div>
+       
+            
+            <div class=" col-md-4 col-sm-6 col-xs-12">
                 <div class="tile">
                     <div class="wrapper">
                         <div class="header">Event Title</div>
@@ -159,20 +189,21 @@ div.footer a.Cbtn-danger:hover{
                         
 
                         <div class="footer">
-                            <a href="#" class="Cbtn Cbtn-primary">View</a>
+                            <a href="#" class="Cbtn Cbtn-info">View</a>
+                            <a href="#" class="Cbtn Cbtn-primary">Edit</a>
                             <a href="#" class="Cbtn Cbtn-danger">Delete</a>
                         </div>
                     </div>
                 </div> 
             </div>
            
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="tile">
                     <div class="wrapper">
                         <div class="header">Event Title</div>
 
                         <div class="banner-img">
-                            <img src="http://via.placeholder.com/640x360" alt="Image 1">
+                            <img src="static/img/django.png" alt="Image 1">
                         </div>
 
                         <div class="dates">
@@ -188,19 +219,20 @@ div.footer a.Cbtn-danger:hover{
                         
 
                         <div class="footer">
-                            <a href="#" class="Cbtn Cbtn-primary">View</a>
+                            <a href="#" class="Cbtn Cbtn-info">View</a>
+                            <a href="#" class="Cbtn Cbtn-primary">Edit</a>
                             <a href="#" class="Cbtn Cbtn-danger">Delete</a>
                         </div>
                     </div>
                 </div> 
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class=" col-md-4 col-sm-6 col-xs-12">
                     <div class="tile">
                         <div class="wrapper">
-                            <div class="header">Event Title</div>
+                            <div class="header">GDG Devfest 2k19</div>
     
                             <div class="banner-img">
-                                <img src="http://via.placeholder.com/640x360" alt="Image 1">
+                                <img src="static/img/devfest.gif" alt="Image 1">
                             </div>
     
                             <div class="dates">
@@ -216,41 +248,70 @@ div.footer a.Cbtn-danger:hover{
                             
     
                             <div class="footer">
-                                <a href="#" class="Cbtn Cbtn-primary">View</a>
+                                <a href="#" class="Cbtn Cbtn-info">View</a>
+                                <a href="#" class="Cbtn Cbtn-primary">Edit</a>
                                 <a href="#" class="Cbtn Cbtn-danger">Delete</a>
                             </div>
                         </div>
                     </div> 
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                        <div class="tile">
-                            <div class="wrapper">
-                                <div class="header">Event Title</div>
-        
-                                <div class="banner-img">
-                                    <img src="http://via.placeholder.com/640x360" alt="Image 1">
-                                </div>
-        
-                                <div class="dates">
-                                    <div class="start">
-                                        <strong>STARTS</strong> 12:30 JAN 2015
-                                        <span></span>
-                                    </div>
-                                    <div class="ends">
-                                        <strong>ENDS</strong> 14:30 JAN 2015
-                                    </div>
-                                </div>
-        
-                                
-        
-                                <div class="footer">
-                                    <a href="#" class="Cbtn Cbtn-primary">View</a>
-                                    <a href="#" class="Cbtn Cbtn-danger">Delete</a>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
+                {% for e in eventdispl %}
+                <td>{{r.restaurant_name}}</td>
+                <td>{{r.restaurant_type}}</td>
+                <td>{{r.locations}}</td>
+                <td>{{r.bio}}</td>
+                        
+
+                     <!-- Add Modal HTML -->
+    <div id="addEventModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form action ="/events" method="POST">
+              <div class="modal-header">						
+                <h4 class="modal-title">Add Event</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">					
+                <div class="form-group">
+                  <label>Event Name</label>
+                  <input type="text" class="form-control" name="eventName" value = "{{e.eventName}}" required>
+                </div>
+                <div class="form-group">
+                  <label>Date Created</label>
+                  <input type="text" class="form-control" name="dateCreated" value = "{{e.dateCreated}}" required>
+                </div>
+                <div class="form-group">
+                  <label>Event Date</label>
+                  <input type="text" class="form-control" name ="eventDate" value = "{{e.eventDate}}" required>
+                </div>
+                
+                <div class="form-group"> 
+                  <label>Time Start</label>
+                    <input type="text" class="form-control" name ="eventStartTime" value = "{{e.eventStartTime}}"  required></textarea>
+                </div>
+                <div class="form-group"> 
+                    <label>Time End</label>
+                     <input type="text" class="form-control" name ="eventEndTime" value = "{{e.eventEndTime}}"  required></textarea>
+                </div>
+                <div class="form-group"> 
+                    <label>Description</label>
+                     <input type="text" class="form-control" name ="eventDescription" value = "{{e.eventDescription}}"  required></textarea>
+                </div>
+                <div class="form-group"> 
+                    <label>Event Location</label>
+                     <input type="text" class="form-control" name ="location" value = "{{e.location}}" required></textarea>
+                </div>     
+              </div>
+              <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                <input type="submit" class="btn btn-success" value="Add">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endfor  %}
 
 
 {% endblock content %}

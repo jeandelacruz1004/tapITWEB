@@ -39,24 +39,49 @@ def signup():
 
 
 #admin
-@tap.route("/admin")
+@tap.route("/admin",methods=["GET","POST"])
 def admin():
     return render_template("admin.html")
 
-@tap.route("/adminprof")
+@tap.route("/adminprof",methods=["GET","POST"])
 def adminprof():
     return render_template("adminprofile.html")
-@tap.route("/logout")
+@tap.route("/logout",methods=["GET","POST"])
 def logout():
     print('sulod')
     session.pop('username', None)
     print("beeplop")
     return render_template("index.html")
 
-@tap.route("/table")
+@tap.route("/table",methods=["GET","POST"])
 def table():
     return render_template("table.html")
 
-@tap.route("/events")
-def events():
+
+
+@tap.route("/events",methods=["GET","POST"])
+def adddevents():
+    print("yey nakasulod ko")
+    if request.method == "POST":
+        print ("nakasulod na pud ko pag post")
+
+        eventName = request.form['eventName ']
+        dateCreated = request.form['dateCreated']
+        eventDate = request.form['eventDate']
+        eventStartTime = request.form['eventStartTime']
+        eventEndTime = request.form['eventEndTime']
+        eventDesciption = request.form['eventDesciption']
+        location = request.form['location']
+        
+        
+        response = requests.post("http://127.0.0.1:5000/events/",
+        json={"eventName":eventName, "dateCreated":dateCreated, "eventStartTime":eventStartTime, " eventEndTime": eventEndTime,"eventDesciption":eventDesciption,  "location":location}, )
+        print(response.text)
+    
+
+        
     return render_template("events.html")
+
+   
+   
+  
