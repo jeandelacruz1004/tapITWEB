@@ -13,6 +13,8 @@ def welcome():
         return redirect("home")
 
     return render_template("index.html")
+
+#Routing for Registration
 @tap.route("/signup", methods=["GET", "POST"])
 def signup():
     if "app" in session:
@@ -27,7 +29,7 @@ def signup():
         password = request.form.get("password")
         confirm = request.form.get("confirm")
 
-        signup = requests.post("http://127.0.0.1:5000/user/",
+        signup = requests.post("http://127.0.0.1:5000//auth/user/",
                                data={'public_id': first_name + " " + last_name,
                                      'username': username,
                                      'email': email,
@@ -36,28 +38,23 @@ def signup():
         return redirect(url_for('welcome'))
 
     return render_template("signup.html")
-
-@tap.route("/login", methods=["GET", "POST"])
+#Routing for Login 
+@tap.route("/login", methods=['POST','GET'])
 def login():
-    if "app" in session:
-        return redirect("home")
 
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
+        print("yey kasulod ko ")
+        email = request.form["email"]
+        password = request.form["password"]
 
-        login = requests.post("http://127.0.0.1:5000/user/login",
-                               data={'email': email,
-                                    'password': password})
-        if login.status_code == 200:
-            return redirect(url_for('admin'))
-        else:
-            return redirect(url_for("login"))
-
-
-    return render_template("admin.html")
-
-#admin
+        if email == "admin@gmail.com": 
+            login = requests.post("http://127.0.0.1:5000/user/login",json={'email': email,'password': password}, )
+            print(login.status_code)
+            return redirect(url_for('admin'))   
+        else: 
+            return redirect(url_for('dashboardUser'))
+    return render_template("login.html")
+#Routing for Admin
 @tap.route("/admin",methods=["GET","POST"])
 def admin():
     return render_template("admin.html")
@@ -101,6 +98,23 @@ def adddevents():
         
     return render_template("events.html")
 
-   
+#Routing for User
+@tap.route("/userdashboard", methods=["GET", "POST"])
+def dashboardUser():
+    if "app" in session:
+        return redirect("userdashboard")
+
+    return render_template("userdashboard.html")
+
+@tap.route("/usersettings", methods=["GET", "POST"])
+def usersettings():
+    if "app" in session:
+        return redirect("usersettings")
+
+    return render_template("usersettings.html")
+
+@tap.route("/userprof")
+def userprof():
+    return render_template("userprofile.html")
    
   
