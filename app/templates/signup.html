@@ -1,40 +1,75 @@
 {% extends "layout.html" %}
-{% block nameplate %}
-    <a class="navbar-brand" href="{{ url_for('welcome') }}">
-{% endblock nameplate %}
+<!--{% block nameplate %}-->
+<!--    <a class="navbar-brand" href="{{ url_for('welcome') }}">-->
+<!--{% endblock nameplate %}-->
+{% block nav %}
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/landing">TapIT</a>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+{% endblock nav %}
+
 {% block content %}
 
     <div class="container" style="margin-top:50px;">
-        <div class="card" style="width:50rem;margin:0 auto;">
+        <div class="card" style="width:50rem;margin:calc(3rem + 100px);">
             <div class="card-body" style="padding:65px 30px;">
                 <form id="signup" method="POST" action="{{url_for('signup')}}">
 
-                    <label>First Name</label>
-                    <div class="form-group">
-                        <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name" required>
+                    <div class="row">
+                        <div class="col">
+                            <label>First Name</label>
+                            <div class="form-reg">
+                                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                             <label>Last Name</label>
+                             <div class="form-reg">
+                                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name" required>
+                             </div>
+                        </div>
                     </div>
-                    <label>Last Name</label>
-                    <div class="form-group">
-                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name" required>
+                    <div class="row">
+                        <div class="col">
+                            <label>Email Address</label>
+                            <div class="form-reg">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Enter Email Address" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>Username</label>
+                            <div class="form-reg">
+                                <input type="text" name="username" id="username" class="form-control" placeholder="Preferred Username" required>
+                            </div>
+                        </div>
                     </div>
-                    <label>Username</label>
-                    <div class="form-group">
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Preferred Username" required>
-                    </div>
-                    <label>Email Address</label>
-                    <div class="form-group">
-                        <input type="text" name="email" id="email" class="form-control" placeholder="Enter Email Address" required>
-                    </div>
-                    <label>rfID</label>
-                    <div class="form-group">
-                        <input type="text" name="rfID" id="rfID" class="form-control" placeholder="Tap RFID" required>
-                    </div>
-                    <label>Password</label>
-                    <div class="form-group">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                    <div class="row">
+                        <div class="col">
+                            <label>rfID</label>
+                            <div class="form-reg">
+                                <input type="text" name="rfID" id="rfID" class="form-control" placeholder="Tap RFID" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>Password</label>
+                            <div class="form-reg">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                            </div>
+                        </div>
                     </div>
 
-                    <button class="btn btn-primary float-right" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
 
                 </form>
             </div>
