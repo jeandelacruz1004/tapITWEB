@@ -45,7 +45,7 @@
 
                     <ul>
                         <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm" >Profile</span></a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt" aria-hidden="true"></i><span class="hidden-xs hidden-sm" >Events</span></a></li>
+                        <li><a href="/events"><i class="fas fa-calendar-alt" aria-hidden="true"></i><span class="hidden-xs hidden-sm" >Events</span></a></li>
                         <li><a href="/usersettings"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-xs hidden-sm">
                             Settings</span></a></li>
                     </ul>
@@ -73,7 +73,7 @@
                         <div class="col-md-5">
                             <div class="header-rightside">
                                 <ul class="list-inline header-top pull-right">
-                                    <li class="hidden-xs"><a href="#" class="add-project" data-toggle="modal" data-target="#add_project">Add Event</a></li>
+                                    <li class="hidden-xs"><a href="#" class="add-event" data-toggle="modal" data-target="#add_event">Add Event</a></li>
                                     <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
                                     <li>
                                         <a href="#" class="icon-info">
@@ -82,19 +82,12 @@
                                         </a>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="static\img\usser.png" alt="user">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="static/img/usser.png" class="img-circle" alt="Avatar"> <span>User</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                                         <ul class="dropdown-menu">
-                                            <li>
-                                                <div class="navbar-content">
-                                                    <span>JS Krishna</span>
-                                                    <p class="text-muted small">
-                                                        me@jskrishna.com
-                                                    </p>
-                                                    <div class="divider">
-                                                    </div>
-                                                    <a href="#" class="view btn-sm active">View Profile</a>
-                                                </div>
-                                            </li>
+                                            <li><a href="/adminprof"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                            <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                                            <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                                            
                                         </ul>
                                     </li>
                                 </ul>

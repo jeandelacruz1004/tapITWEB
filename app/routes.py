@@ -52,6 +52,10 @@ def usersettings():
 
     return render_template("usersettings.html")
 
+@tap.route("/userprof")
+def userprof():
+    return render_template("userprofile.html")
+
 
 
 
