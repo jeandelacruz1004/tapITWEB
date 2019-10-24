@@ -48,7 +48,7 @@ def login():
         password = request.form["password"]
 
         if email == "admin@gmail.com": 
-            login = requests.post("http://127.0.0.1:5000/user/login",json={'email': email,'password': password}, )
+            login = requests.post("http://127.0.0.1:5000/user/login",data={'email': email,'password': password}, )
             print(login.status_code)
             return redirect(url_for('admin'))   
         else: 
