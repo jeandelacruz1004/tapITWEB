@@ -19,6 +19,20 @@
     </div>
 {% endblock nav %}
 
+{% block flashMessage %}
+<div id="alert-box" class="container">
+    {% with messages = get_flashed_messages %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+{% endblock flashMessage %}
+
 {% block content %}
 
     <div class="container" style="margin-top:50px;">
