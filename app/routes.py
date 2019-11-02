@@ -14,6 +14,8 @@ def welcome():
         return redirect("home")
 
     return render_template("index.html")
+
+#Routing for Registration
 @tap.route("/signup", methods=["GET", "POST"])
 def signup():
     if "app" in session:
@@ -29,7 +31,7 @@ def signup():
         confirm = request.form.get("confirm")
         print(first_name, last_name, username)
 
-        signup = requests.post("http://127.0.0.1:5000/user/",
+        signup = requests.post("http://127.0.0.1:8050//auth/user/",
                                data={'public_id': first_name + " " + last_name,
                                      'username': username,
                                      'email': email,
@@ -38,8 +40,68 @@ def signup():
         return redirect(url_for('welcome'))
 
     return render_template("signup.html")
+#Routing for Login 
+@tap.route("/login", methods=['POST','GET'])
+def login():
 
-#User
+    if request.method == "POST":
+        print("yey kasulod ko ")
+        email = request.form["email"]
+        password = request.form["password"]
+
+        if email == "admin@gmail.com": 
+            login = requests.post("http://127.0.0.1:8050/user/login",data={'email': email,'password': password}, )
+            print(login.status_code)
+            return redirect(url_for('admin'))   
+        else: 
+            return redirect(url_for('dashboardUser'))
+    return render_template("login.html")
+#Routing for Admin
+@tap.route("/admin",methods=["GET","POST"])
+def admin():
+    return render_template("admin.html")
+
+
+@tap.route("/adminprof",methods=["GET","POST"])
+def adminprof():
+    return render_template("adminprofile.html")
+@tap.route("/logout",methods=["GET","POST"])
+def logout():
+    print('sulod')
+    session.pop('username', None)
+    print("beeplop")
+    return render_template("index.html")
+
+@tap.route("/table",methods=["GET","POST"])
+def table():
+    return render_template("table.html")
+
+
+
+@tap.route("/events",methods=["GET","POST"])
+def adddevents():
+    print("yey nakasulod ko")
+    if request.method == "POST":
+        print ("nakasulod na pud ko pag post")
+
+        eventName = request.form['eventName ']
+        dateCreated = request.form['dateCreated']
+        eventDate = request.form['eventDate']
+        eventStartTime = request.form['eventStartTime']
+        eventEndTime = request.form['eventEndTime']
+        eventDesciption = request.form['eventDesciption']
+        location = request.form['location']
+        
+        
+        response = requests.post("http://127.0.0.1:8050/events/",
+        json={"eventName":eventName, "dateCreated":dateCreated, "eventStartTime":eventStartTime, " eventEndTime": eventEndTime,"eventDesciption":eventDesciption,  "location":location}, )
+        print(response.text)
+    
+
+        
+    return render_template("events.html")
+
+#Routing for User
 @tap.route("/userdashboard", methods=["GET", "POST"])
 def dashboardUser():
     if "app" in session:
@@ -57,51 +119,26 @@ def usersettings():
 @tap.route("/userprof")
 def userprof():
     return render_template("userprofile.html")
-
-
-
-
-#admin
-@tap.route("/admin")
-def admin():
-    return render_template("admin.html")
-
-@tap.route("/adminprof")
-def adminprof():
-    return render_template("adminprofile.html")
-@tap.route("/logout")
-def logout():
-    print('sulod')
-    session.pop('username', None)
-    print("beeplop")
-    return render_template("index.html")
-
-@tap.route("/table")
-def table():
-    return render_template("table.html")
-
-@tap.route("/events")
-def events():
-    return render_template("events.html")
-@tap.route("/login", methods=["GET", "POST"])
-def login():
-    if "app" in session:
-        return redirect("home")
-
+   
+@tap.route("/userevents")
+def adduserevents():
+    print("yey nakasulod ko")
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
+        print ("nakasulod na pud ko pag post")
 
-        login = requests.post("http://127.0.0.1:5000/auth/login",
-                               data={'email': email,
-                                    'password': password})
+        eventName = request.form['eventName ']
+        dateCreated = request.form['dateCreated']
+        eventDate = request.form['eventDate']
+        eventStartTime = request.form['eventStartTime']
+        eventEndTime = request.form['eventEndTime']
+        eventDesciption = request.form['eventDesciption']
+        location = request.form['location']
+        
+        
+        response = requests.post("http://127.0.0.1:8050/userevents/",
+        json={"eventName":eventName, "dateCreated":dateCreated, "eventStartTime":eventStartTime, " eventEndTime": eventEndTime,"eventDesciption":eventDesciption,  "location":location}, )
+        print(response.text)
+    
 
-        if login.status_code == 200:
-            return render_template("dash.html")
-        else:
-            print("bbbbb")
-            flash("Log in unsuccessful.", "danger")
-            return redirect(url_for("login"))
-
-
-    return render_template("login.html")
+        
+    return render_template("userevents.html")

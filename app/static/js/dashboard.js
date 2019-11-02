@@ -27,3 +27,4 @@ $('[data-toggle="modal"]').on('click', function (e) {
     $modalAttribute.text(dataValue || '');
   });
 });
+
