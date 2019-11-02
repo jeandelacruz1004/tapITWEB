@@ -307,11 +307,22 @@
                 <!-- Portfolio Modal - Image -->
                 <img class="img-fluid rounded mb-5" src="img/portfolio/game.png" alt="">
                 <!-- Portfolio Modal - Text -->
-                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                <button class="btn btn-primary" href="#" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
+                <p class="mb-5">
+                    <form id="login" method="POST" action="{{url_for('login')}}">
+
+                        <label>Email Address</label>
+                        <div class="form-group">
+                            <input type="text" name="email" id="email" class="form-control" placeholder="Enter Email Address" required>
+                        </div>
+                        
+                        <label>Password</label>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                        </div>
+    
+                        <button class="btn btn-primary float-right" type="submit">Submit</button>
+    
+                    </form>
               </div>
             </div>
           </div>
