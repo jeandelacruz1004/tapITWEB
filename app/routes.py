@@ -52,10 +52,11 @@ def login():
         login = requests.post("http://127.0.0.1:5000/auth/login",data={'email': email,'password': password})
 
         if login.status_code == 200:
-            print(login.status_code)
-            return redirect(url_for('admin'))   
-        else: 
-            return redirect(url_for('login'))
+            if email == "admin@gmail.com":
+                print(login.status_code)
+                return redirect(url_for('admin'))   
+            else: 
+                return render_template("userdashboard.html")
     return render_template("login.html")
 #Routing for Admin
 @tap.route("/admin",methods=["GET","POST"])
