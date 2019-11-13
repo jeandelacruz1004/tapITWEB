@@ -35,7 +35,7 @@ def signup():
                                      'email': email,
                                      'rfID': rfID,
                                      'password': password})
-        return redirect(url_for('welcome'))
+        return redirect(url_for('login'))
 
     return render_template("signup.html")
 #Routing for Login 
@@ -81,17 +81,17 @@ def adddevents():
     if request.method == "POST":
         print ("nakasulod na pud ko pag post")
 
-        eventName = request.form['eventName ']
+        eventName = request.form['eventName']
         dateCreated = request.form['dateCreated']
         eventDate = request.form['eventDate']
         eventStartTime = request.form['eventStartTime']
         eventEndTime = request.form['eventEndTime']
-        eventDesciption = request.form['eventDesciption']
+        eventDescription = request.form['eventDescription']
         location = request.form['location']
         
         
         response = requests.post("http://127.0.0.1:5000/events/",
-        json={"eventName":eventName, "dateCreated":dateCreated, "eventStartTime":eventStartTime, " eventEndTime": eventEndTime,"eventDesciption":eventDesciption,  "location":location}, )
+        json={"eventName":eventName, "dateCreated":dateCreated, "eventStartTime":eventStartTime, " eventEndTime": eventEndTime,"eventDescription":eventDescription,  "location":location}, )
         print(response.text)
     
 

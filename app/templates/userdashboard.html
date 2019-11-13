@@ -44,8 +44,9 @@
                 <div class="navi"><br>
 
                     <ul>
+                        <li><a href="/userdashboard"><i class="fa fa-dashboard" aria-hidden="true"></i><span class="hidden-xs hidden-sm" >Dashboard</span></a></li>
                         <li><a href="/userprof"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm" >Profile</span></a></li>
-                        <li><a href="/events"><i class="fas fa-calendar-alt" aria-hidden="true"></i><span class="hidden-xs hidden-sm" >Events</span></a></li>
+                        <li><a href="/userevents"><i class="fas fa-calendar-alt" aria-hidden="true"></i><span class="hidden-xs hidden-sm" >Events</span></a></li>
                         <li><a href="/usersettings"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-xs hidden-sm">
                             Settings</span></a></li>
                     </ul>
@@ -73,7 +74,7 @@
                         <div class="col-md-5">
                             <div class="header-rightside">
                                 <ul class="list-inline header-top pull-right">
-                                    <li class="hidden-xs"><a href="#" class="add-event" data-toggle="modal" data-target="#add_event">Add Event</a></li>
+                                    
                                     <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
                                     <li>
                                         <a href="#" class="icon-info">
@@ -84,7 +85,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="static/img/usser.png" class="img-circle" alt="Avatar"> <span>User</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="/adminprof"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                            <li><a href="/userprof"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                                             <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
                                             <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
                                             
@@ -95,45 +96,45 @@
                         </div>
                     </header>
                 </div>
-                <div class="user-dashboard">
+                <div class="container">
                     <h1>Hello, User</h1>
-                    <div class="row">
-                        <div class="col-md-5 col-sm-5 col-xs-12 gutter">
-
-                            <div class="event">
-                                <h2>Event</h2>
-
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span>Period:</span> Last Year
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a href="#">2012</a>
-                                        <a href="#">2014</a>
-                                        <a href="#">2015</a>
-                                        <a href="#">2016</a>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5 col-xs-12 gutter">
+    
+                                <div class="event">
+                                    <h2>Event</h2>
+    
+                                    <div class="btn-group">
+                                        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span>Period:</span> Last Year
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="#">2012</a>
+                                            <a href="#">2014</a>
+                                            <a href="#">2015</a>
+                                            <a href="#">2016</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-5 col-xs-12 gutter">
+    
+                                <div class="event report">
+                                    <h2>Report</h2>
+                                    <div class="btn-group">
+                                        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span>Period:</span> Last Year
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="#">2012</a>
+                                            <a href="#">2014</a>
+                                            <a href="#">2015</a>
+                                            <a href="#">2016</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-7 col-sm-7 col-xs-12 gutter">
-
-                            <div class="event report">
-                                <h2>Report</h2>
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span>Period:</span> Last Year
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a href="#">2012</a>
-                                        <a href="#">2014</a>
-                                        <a href="#">2015</a>
-                                        <a href="#">2016</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

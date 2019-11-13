@@ -4449,7 +4449,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
   float:left
  }
  .navbar-nav>li>a {
-  padding-top:15px;
+  padding-top:25px;
   padding-bottom:15px
  }
 }
@@ -4525,7 +4525,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 @media (min-width:768px) {
  .navbar-form {
   width:auto;
-  padding-top:0;
+  padding-top:14px;
   padding-bottom:0;
   margin-right:0;
   margin-left:0;
