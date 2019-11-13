@@ -46,13 +46,15 @@ def login():
         print("yey kasulod ko ")
         email = request.form["email"]
         password = request.form["password"]
+ 
+        login = requests.post("http://127.0.0.1:5000/auth/login",data={'email': email,'password': password})
 
-        if email == "admin@gmail.com": 
-            login = requests.post("http://127.0.0.1:5000/user/login",data={'email': email,'password': password}, )
-            print(login.status_code)
-            return redirect(url_for('admin'))   
-        else: 
-            return redirect(url_for('dashboardUser'))
+        if login.status_code == 200:
+            if email == "admin@gmail.com":
+                print(login.status_code)
+                return redirect(url_for('admin'))   
+            else: 
+                return render_template("userdashboard.html")
     return render_template("login.html")
 #Routing for Admin
 @tap.route("/admin",methods=["GET","POST"])
