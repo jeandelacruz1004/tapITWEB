@@ -38,7 +38,7 @@
       </div>
 
 
-        <button type="button" class="loginBtn" data-toggle="modal" data-target="#modalLogin">LOGIN</button>
+        <button type="button" class="loginBtn" data-toggle="modal" data-target="#modalLoginForm">LOGIN</button>
         <a>Don't have an account?</a><a class="custText" href="/signup"> Sign Up</a>
 
 
@@ -162,8 +162,6 @@
     </a>
   </div>
 
-  <!-- Portfolio Modals -->
-
   <!-- Portfolio Modal 1 -->
   <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -282,50 +280,36 @@
   </div>
 
   <!-- Login -->
-  <div class="portfolio-modal modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="portfolioModal4Label" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">
-            <i class="fas fa-times"></i>
-          </span>
-        </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <!-- Portfolio Modal - Title -->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Login</h2>
-                <!-- Icon Divider -->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon">
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Modal - Image -->
-                <img class="img-fluid rounded mb-5" src="img/portfolio/game.png" alt="">
-                <!-- Portfolio Modal - Text -->
-                <p class="mb-5">
-                    <form id="login" method="POST" action="{{url_for('login')}}">
-
-                        <label>Email Address</label>
-                        <div class="form-group">
-                            <input type="text" name="email" id="email" class="form-control" placeholder="Enter Email Address" required>
-                        </div>
-                        
-                        <label>Password</label>
-                        <div class="form-group">
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
-                        </div>
-    
-                        <button class="btn btn-primary float-right" type="submit">Submit</button>
-    
-                    </form>
+        <div class="modal-header text-center">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <i class="fas fa-times"></i>
+            </span>
+          </button>
+        </div>
+        <div class="modal-login mx-3">
+          <img class="imgLogo" src='{{ url_for("static", filename="img/loginLogo.png")}}'>
+          <form id="signup" method="POST" action="{{url_for('login')}}">
+            <div class="md-form mb-5">
+              <label>Email Address</label>
+              <div class="form-reg">
+                  <input type="text" name="email" id="email" class="form-control" placeholder="Enter Email Address" required>
               </div>
             </div>
-          </div>
+            <div class="md-form mb-4">
+              <label>Password</label>
+              <div class="form-reg">
+                  <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-login-footer d-flex justify-content-center">
+          <button class="btn btn-primary" type="submit">Submit</button>
         </div>
       </div>
     </div>
@@ -340,32 +324,7 @@
             <i class="fas fa-times"></i>
           </span>
         </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <!-- Portfolio Modal - Title -->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Locked Safe</h2>
-                <!-- Icon Divider -->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon">
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Modal - Image -->
-                <img class="img-fluid rounded mb-5" src="img/portfolio/safe.png" alt="">
-                <!-- Portfolio Modal - Text -->
-                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                <button class="btn btn-primary" href="#" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>

@@ -73,6 +73,12 @@ body {
 	text-align:center;
 	position:relative;
 }
+
+
+
+
+
+
 .dates strong,
 .stats strong{
 	display:block;
@@ -140,7 +146,7 @@ div.footer a.Cbtn-info{
 }
 
 div.footer a.Cbtn-info:hover{
-	background-color: ##9b59b6;
+	background-color: #9b59b6;
 }
 
 div.footer a.Cbtn-danger{
@@ -152,6 +158,23 @@ div.footer a.Cbtn-danger:hover{
 	background-color: #fd7676;
 }
 
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-font-feature-settings: 'liga';
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
 
 
 </style>
@@ -159,81 +182,16 @@ div.footer a.Cbtn-danger:hover{
 
 <!-- MAIN -->
 <div class="main">
-    <div class="col-sm-6">
-        <a href="#addEventModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Event</span></a>
-    </div>
-        <!-- MAIN CONTENT -->
-        <div class="main-content"></div>
-       
-            
-            <div class=" col-md-4 col-sm-6 col-xs-12">
-                <div class="tile">
-                    <div class="wrapper">
-                        <div class="header">Event Title</div>
-
-                        <div class="banner-img">
-                            <img src="http://via.placeholder.com/640x360" alt="Image 1">
-                        </div>
-
-                        <div class="dates">
-                            <div class="start">
-                                <strong>STARTS</strong> 12:30 JAN 2015
-                                <span></span>
+    <div class="col-sm-6"><a href="#addEventModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Event</span></a></div>
+      <div class="main-content"></div>
+      <div class=" col-md-4 col-sm-6 col-xs-12">
+          <div class="tile">
+              <div class="wrapper">
+                   <div class="header">Event Name</div>
+                           <div class="banner-img">
+                                <img src="http://via.placeholder.com/640x360" alt="Image 1">
                             </div>
-                            <div class="ends">
-                                <strong>ENDS</strong> 14:30 JAN 2015
-                            </div>
-                        </div>
 
-                        
-
-                        <div class="footer">
-                            <a href="#" class="Cbtn Cbtn-info">View</a>
-                            <a href="#" class="Cbtn Cbtn-primary">Edit</a>
-                            <a href="#" class="Cbtn Cbtn-danger">Delete</a>
-                        </div>
-                    </div>
-                </div> 
-            </div>
-           
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="tile">
-                    <div class="wrapper">
-                        <div class="header">Event Title</div>
-
-                        <div class="banner-img">
-                            <img src="static/img/django.png" alt="Image 1">
-                        </div>
-
-                        <div class="dates">
-                            <div class="start">
-                                <strong>STARTS</strong> 12:30 JAN 2015
-                                <span></span>
-                            </div>
-                            <div class="ends">
-                                <strong>ENDS</strong> 14:30 JAN 2015
-                            </div>
-                        </div>
-
-                        
-
-                        <div class="footer">
-                            <a href="#" class="Cbtn Cbtn-info">View</a>
-                            <a href="#" class="Cbtn Cbtn-primary">Edit</a>
-                            <a href="#" class="Cbtn Cbtn-danger">Delete</a>
-                        </div>
-                    </div>
-                </div> 
-            </div>
-            <div class=" col-md-4 col-sm-6 col-xs-12">
-                    <div class="tile">
-                        <div class="wrapper">
-                            <div class="header">GDG Devfest 2k19</div>
-    
-                            <div class="banner-img">
-                                <img src="static/img/devfest.gif" alt="Image 1">
-                            </div>
-    
                             <div class="dates">
                                 <div class="start">
                                     <strong>STARTS</strong> 12:30 JAN 2015
@@ -243,9 +201,9 @@ div.footer a.Cbtn-danger:hover{
                                     <strong>ENDS</strong> 14:30 JAN 2015
                                 </div>
                             </div>
-    
-                            
-    
+
+                        
+
                             <div class="footer">
                                 <a href="#" class="Cbtn Cbtn-info">View</a>
                                 <a href="#" class="Cbtn Cbtn-primary">Edit</a>
@@ -254,10 +212,63 @@ div.footer a.Cbtn-danger:hover{
                         </div>
                     </div> 
                 </div>
+           
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="tile">
+                <div class="wrapper">
+                    <div class="header">Event Title</div>
+                    <div class="banner-img">
+                        <img src="static/img/django.png" alt="Image 1">
+                    </div>
 
-               
+                    <div class="dates">
+                        <div class="start">
+                            <strong>STARTS</strong> 12:30 JAN 2015
+                            <span></span>
+                        </div>
+                        <div class="ends">
+                            <strong>ENDS</strong> 14:30 JAN 2015
+                        </div>
+                    </div>
 
-                     <!-- Add Modal HTML -->
+                        
+
+                    <div class="footer">
+                        <a href="#" class="Cbtn Cbtn-info">View</a>
+                        <a href="#" class="Cbtn Cbtn-primary">Edit</a>
+                        <a href="#" class="Cbtn Cbtn-danger">Delete</a>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class=" col-md-4 col-sm-6 col-xs-12">
+            <div class="tile">
+                <div class="wrapper">
+                    <div class="header">GDG Devfest 2k19</div>
+                    <div class="banner-img">
+                        <img src="static/img/devfest.gif" alt="Image 1">
+                    </div>
+                    <div class="dates">
+                        <div class="start">
+                            <strong>STARTS</strong> 12:30 JAN 2015
+                            <span></span>
+                        </div>
+                        <div class="ends">
+                            <strong>ENDS</strong> 14:30 JAN 2015
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <a href="#" class="Cbtn Cbtn-info">View</a>
+                        <a href="#" class="Cbtn Cbtn-primary">Edit</a>
+                        <a href="#" class="Cbtn Cbtn-danger">Delete</a>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+
+                
+<!-- Add Modal HTML -->
     <div id="addEventModal" class="modal fade">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -270,10 +281,6 @@ div.footer a.Cbtn-danger:hover{
                 <div class="form-group">
                   <label>Event Name</label>
                   <input type="text" class="form-control" name="eventName" required>
-                </div>
-                <div class="form-group">
-                  <label>Date Created</label>
-                  <input type="text" class="form-control" name="dateCreated" required>
                 </div>
                 <div class="form-group">
                   <label>Event Date</label>
@@ -306,6 +313,7 @@ div.footer a.Cbtn-danger:hover{
         </div>
       </div>
    
+     
 
 
 {% endblock content %}

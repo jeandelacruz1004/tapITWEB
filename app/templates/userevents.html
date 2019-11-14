@@ -20,32 +20,6 @@
 
 {% block content %}
 
-<style>
-.modal1 .modal-header1 {
-    border-bottom: none;
-    position: relative;
-  }
-  .modal1 .modal-header1 .btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 0;
-    border-top-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .modal1 .modal-footer1 {
-    border-top: none;
-    padding: 0;
-  }
-  .modal1 .modal-footer1 .btn-group > .btn:first-child {
-    border-bottom-left-radius: 0;
-  }
-  .modal1 .modal-footer1 .btn-group > .btn:last-child {
-    border-top-right-radius: 0;
-  }
-
-</style>
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -114,7 +88,7 @@
                                         </a>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="static/img/usser.png" class="img-circle" alt="Avatar"><i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="static/img/usser.png" class="img-circle" alt="Avatar"> <span>User</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="/userprof"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                                             <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
@@ -156,7 +130,8 @@
         
                                 <div class="footer1">
                                     <a href="#" class="btn btn-info">View</a>
-                                    <a href="#" class="btn btn-primary">Join</a>
+                                    <a href="#" class="btn btn-primary">Edit</a>
+                                    <a href="#" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                         </div> 
@@ -227,7 +202,7 @@
 
 
         <div class="container">
-            <div class="row">
+                <div class="row">
                 <div id="myModal1" class="modal fade in">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -250,8 +225,7 @@
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dalog -->
                 </div><!-- /.modal -->
-            </div>
-        </div>  
+                
     </div>
 
 

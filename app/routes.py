@@ -37,7 +37,7 @@ def signup():
                                      'email': email,
                                      'rfID': rfID,
                                      'password': password})
-        return redirect(url_for('welcome'))
+        return redirect(url_for('login'))
 
     return render_template("signup.html")
 #Routing for Login 
@@ -48,16 +48,15 @@ def login():
         print("yey kasulod ko ")
         email = request.form["email"]
         password = request.form["password"]
+ 
+        login = requests.post("http://127.0.0.1:5000/auth/login",data={'email': email,'password': password})
 
-        
-
-        
-        login = requests.post("http://127.0.0.1:8050/user/login",data={'email': email,'password': password}, )
-        if login.status_code == 200:    
-            print(login.status_code)
-            return redirect(url_for('admin'))   
-        else: 
-            return redirect(url_for('dashboardUser'))
+        if login.status_code == 200:
+            if email == "admin@gmail.com":
+                print(login.status_code)
+                return redirect(url_for('admin'))   
+            else: 
+                return render_template("userdashboard.html")
     return render_template("login.html")
 #Routing for Admin
 @tap.route("/admin",methods=["GET","POST"])
@@ -87,17 +86,17 @@ def adddevents():
     if request.method == "POST":
         print ("nakasulod na pud ko pag post")
 
-        eventName = request.form['eventName ']
+        eventName = request.form['eventName']
         dateCreated = request.form['dateCreated']
         eventDate = request.form['eventDate']
         eventStartTime = request.form['eventStartTime']
         eventEndTime = request.form['eventEndTime']
-        eventDesciption = request.form['eventDesciption']
+        eventDescription = request.form['eventDescription']
         location = request.form['location']
         
         
-        response = requests.post("http://127.0.0.1:8050/events/",
-        json={"eventName":eventName, "dateCreated":dateCreated, "eventStartTime":eventStartTime, " eventEndTime": eventEndTime,"eventDesciption":eventDesciption,  "location":location}, )
+        response = requests.post("http://127.0.0.1:5000/events/",
+        json={"eventName":eventName, "dateCreated":dateCreated, "eventStartTime":eventStartTime, " eventEndTime": eventEndTime,"eventDescription":eventDescription,  "location":location}, )
         print(response.text)
     
 
