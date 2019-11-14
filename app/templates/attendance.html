@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block nav %}
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/landing">TapIT</a>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+{% endblock nav %}
+
+
+
+{% block content %}
+
+<style>
+body {
+    line-height: 1.6;
+    margin: 2em;
+    min-width: 990px;
+  }
+  
+  th {
+    background-color: #001f3f;
+    color: #fff;
+    padding: 0.5em 1em;
+  }
+  
+  td {
+    border-top: 1px solid #eee;
+    padding: 0.5em 1em;
+  }
+  
+  input {
+    cursor: pointer;
+  }
+  
+  /* Column types */
+  th.missed-col {
+    background-color: #f00;
+  }
+  
+  td.missed-col {
+    background-color: #ffecec;
+    color: #f00;
+    text-align: center;
+  }
+  
+  .name-col {
+    text-align: left;
+  }
+
+</style>  
+
+<h1>Event Attendance</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th class="name-col">Participant's Name</th>
+      <th>Confirmed</th>
+      <th>Cancelled</th>
+      <th class="missed-col">Date of Confirmation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="student">
+      <td class="name-col">Slappy the Frog</td>
+      <td class="attend-col"><input type="checkbox"></td>
+      <td class="attend-col"><input type="checkbox"></td>
+    </tr>
+    <tr class="student">
+      <td class="name-col">Lilly the Lizard</td>
+      <td class="attend-col"><input type="checkbox"></td>
+      <td class="attend-col"><input type="checkbox"></td>
+    </tr>
+    <tr class="student">
+      <td class="name-col">Paulrus the Walrus</td>
+      <td class="attend-col"><input type="checkbox"></td>
+      <td class="attend-col"><input type="checkbox"></td>
+    </tr>
+    <tr class="student">
+      <td class="name-col">Gregory the Goat</td>
+      <td class="attend-col"><input type="checkbox"></td>
+      <td class="attend-col"><input type="checkbox"></td>
+    </tr>
+    <tr class="student">
+      <td class="name-col">Adam the Anaconda</td>
+      <td class="attend-col"><input type="checkbox"></td>
+      <td class="attend-col"><input type="checkbox"></td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock content %}

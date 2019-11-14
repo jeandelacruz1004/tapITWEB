@@ -31,7 +31,7 @@ def signup():
         confirm = request.form.get("confirm")
         print(first_name, last_name, username)
 
-        signup = requests.post("http://127.0.0.1:8050//auth/user/",
+        signup = requests.post("http://127.0.0.1:5000/user/",
                                data={'public_id': first_name + " " + last_name,
                                      'username': username,
                                      'email': email,
@@ -49,8 +49,11 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
 
-        if email == "admin@gmail.com": 
-            login = requests.post("http://127.0.0.1:8050/user/login",data={'email': email,'password': password}, )
+        
+
+        
+        login = requests.post("http://127.0.0.1:8050/user/login",data={'email': email,'password': password}, )
+        if login.status_code == 200:    
             print(login.status_code)
             return redirect(url_for('admin'))   
         else: 
@@ -142,3 +145,8 @@ def adduserevents():
 
         
     return render_template("userevents.html")
+
+#Attendance
+@tap.route("/attendance",methods=["GET","POST"])
+def attendance():
+    return render_template("attendance.html")
