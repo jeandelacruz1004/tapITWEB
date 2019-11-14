@@ -1,6 +1,3 @@
-
-.idea/
-
-venv/
-
-*.pyc
+/venv/
+.idea
+tapit/__pycache__/
