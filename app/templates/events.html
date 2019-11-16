@@ -178,7 +178,19 @@ div.footer a.Cbtn-danger:hover{
 
 
 </style>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker3').datetimepicker({
+            format: 'LT'
+        });
+    });
 
+    $(function () {
+                $('#datetimepicker2').datetimepicker({
+                    locale: 'ru'
+                });
+            });
+</script>
 
 <!-- MAIN -->
 <div class="main">
@@ -282,19 +294,39 @@ div.footer a.Cbtn-danger:hover{
                   <label>Event Name</label>
                   <input type="text" class="form-control" name="eventName" required>
                 </div>
+                
                 <div class="form-group">
                   <label>Event Date</label>
-                  <input type="text" class="form-control" name ="eventDate" required>
+                  <div class='input-group date' id='datetimepicker2'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
                 </div>
+          
+                  
                 
-                <div class="form-group"> 
-                  <label>Time Start</label>
-                    <input type="text" class="form-control" name ="eventStartTime" required></textarea>
-                </div>
-                <div class="form-group"> 
-                    <label>Time End</label>
-                     <input type="text" class="form-control" name ="eventEndTime" required></textarea>
-                </div>
+                <div class="form-group">
+                        <label>Start Time</label>
+                        <div class='input-group date' id='datetimepicker3'>
+                             <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                            <label>End Time</label>
+                            <div class='input-group date' id='datetimepicker3'>
+                                 <input type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                            </div>
+                        </div>
+                    
                 <div class="form-group"> 
                     <label>Description</label>
                      <input type="text" class="form-control" name ="eventDescription"   required></textarea>
@@ -312,7 +344,9 @@ div.footer a.Cbtn-danger:hover{
           </div>
         </div>
       </div>
-   
+    
+    
+    
      
 
 
