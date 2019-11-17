@@ -9,7 +9,7 @@ key = secrets.token_hex(16)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = key
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:regards@localhost:5432/tapit'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:regards@localhost:5432/Secret'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

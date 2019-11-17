@@ -107,3 +107,57 @@ def logout():
     return redirect(url_for('home'))
 
 
+events = [
+    {
+        'title': 'Palakasan MMXX',
+        'start_time': 'April 17, 2020',
+        'end_time': 'April 24, 2020',
+        'details': 'Lorem ipsum whatever',
+        'date_created': 'April 1, 2020',
+    },
+    {
+        'title': 'Intellectual Property Foundation: Patents, Copyrights & Other IPs',
+        'start_time': 'Nov 20, 2019 8:30AM',
+        'end_time': 'Nov 20, 2019 12:00NN',
+        'details': 'CED Amphitheater',
+        'date_created': 'Nov 17, 2019',
+    },
+    {
+        'title': 'Palakasan MMXX',
+        'start_time': 'April 17, 2020',
+        'end_time': 'April 24, 2020',
+        'details': 'Lorem ipsum whatever',
+        'date_created': 'April 1, 2020',
+    },
+    {
+        'title': 'Intellectual Property Foundation: Patents, Copyrights & Other IPs',
+        'start_time': 'Nov 20, 2019 8:30AM',
+        'end_time': 'Nov 20, 2019 12:00NN',
+        'details': 'CED Amphitheater',
+        'date_created': 'Nov 17, 2019',
+    },
+    {
+        'title': 'Palakasan MMXX',
+        'start_time': 'April 17, 2020',
+        'end_time': 'April 24, 2020',
+        'details': 'Lorem ipsum whatever',
+        'date_created': 'April 1, 2020',
+    },
+    {
+        'title': 'Intellectual Property Foundation: Patents, Copyrights & Other IPs',
+        'start_time': 'Nov 20, 2019 8:30AM',
+        'end_time': 'Nov 20, 2019 12:00NN',
+        'details': 'CED Amphitheater',
+        'date_created': 'Nov 17, 2019',
+    },
+]
+
+
+@app.route("/events")
+@login_required
+# @admin_login_required
+def disp_events():
+    return render_template('events.html', title='Events', events=events)
+
+
+
