@@ -160,4 +160,23 @@ def disp_events():
     return render_template('events.html', title='Events', events=events)
 
 
+@app.route("/calendar")
+def calendar():
+    return render_template('calendar.html')
+
+
+@app.route("/json")
+def json():
+    return render_template('json.html')
+
+
+@app.route('/data')
+def return_data():
+    start_date = request.args.get('start', '')
+    end_date = request.args.get('end', '')
+
+
+    with open("tapit/events.json", "r") as input_data:
+       
+        return input_data.read()
 

@@ -59,3 +59,10 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose another one.')
+
+
+class EventForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    start_time = DateTimeField('Start Time', validators=[DataRequired()])
+    end_time = DateTimeField('End Time', validators=[DataRequired()])
+    submit = SubmitField('')
