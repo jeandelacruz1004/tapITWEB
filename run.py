@@ -1,4 +1,4 @@
-from app import tap
+from tapit import app
 
-if __name__ == "__main__":
-    tap.run(debug=True, threaded=True, port=8010)
+if __name__ == '__main__':
+    app.run(debug=True)
