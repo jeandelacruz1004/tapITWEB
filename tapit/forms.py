@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, DateTimeField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional, ValidationError
 from tapit.models import User
 
@@ -81,3 +81,8 @@ class forms(FlaskForm):
     yearlevel = StringField('Year Level', validators=[DataRequired(), Length(min=1, max=15)])
     course_id = StringField('Course ID', validators=[DataRequired(), Length(min=1, max=100)])
     course = StringField('Course Name', validators=[DataRequired(), Length(min=1, max=100)])
+class EventForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    start_time = DateTimeField('Start Time', validators=[DataRequired()])
+    end_time = DateTimeField('End Time', validators=[DataRequired()])
+    submit = SubmitField('')

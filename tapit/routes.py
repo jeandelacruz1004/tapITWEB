@@ -141,3 +141,76 @@ def addparticipant():
 	return render_template('addparticipant.html',form=form , title='Add')
 
     
+events = [
+    {
+        'title': 'Palakasan MMXX',
+        'start_time': 'April 17, 2020',
+        'end_time': 'April 24, 2020',
+        'details': 'Lorem ipsum whatever',
+        'date_created': 'April 1, 2020',
+    },
+    {
+        'title': 'Intellectual Property Foundation: Patents, Copyrights & Other IPs',
+        'start_time': 'Nov 20, 2019 8:30AM',
+        'end_time': 'Nov 20, 2019 12:00NN',
+        'details': 'CED Amphitheater',
+        'date_created': 'Nov 17, 2019',
+    },
+    {
+        'title': 'Palakasan MMXX',
+        'start_time': 'April 17, 2020',
+        'end_time': 'April 24, 2020',
+        'details': 'Lorem ipsum whatever',
+        'date_created': 'April 1, 2020',
+    },
+    {
+        'title': 'Intellectual Property Foundation: Patents, Copyrights & Other IPs',
+        'start_time': 'Nov 20, 2019 8:30AM',
+        'end_time': 'Nov 20, 2019 12:00NN',
+        'details': 'CED Amphitheater',
+        'date_created': 'Nov 17, 2019',
+    },
+    {
+        'title': 'Palakasan MMXX',
+        'start_time': 'April 17, 2020',
+        'end_time': 'April 24, 2020',
+        'details': 'Lorem ipsum whatever',
+        'date_created': 'April 1, 2020',
+    },
+    {
+        'title': 'Intellectual Property Foundation: Patents, Copyrights & Other IPs',
+        'start_time': 'Nov 20, 2019 8:30AM',
+        'end_time': 'Nov 20, 2019 12:00NN',
+        'details': 'CED Amphitheater',
+        'date_created': 'Nov 17, 2019',
+    },
+]
+
+
+@app.route("/events")
+@login_required
+# @admin_login_required
+def disp_events():
+    return render_template('events.html', title='Events', events=events)
+
+
+@app.route("/calendar")
+def calendar():
+    return render_template('calendar.html')
+
+
+@app.route("/json")
+def json():
+    return render_template('json.html')
+
+
+@app.route('/data')
+def return_data():
+    start_date = request.args.get('start', '')
+    end_date = request.args.get('end', '')
+
+
+    with open("tapit/events.json", "r") as input_data:
+       
+        return input_data.read()
+
