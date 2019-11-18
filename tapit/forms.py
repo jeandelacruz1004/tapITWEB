@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateTimeField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional, ValidationError
 from tapit.models import User
 
@@ -61,8 +61,4 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose another one.')
 
 
-class EventForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    start_time = DateTimeField('Start Time', validators=[DataRequired()])
-    end_time = DateTimeField('End Time', validators=[DataRequired()])
-    submit = SubmitField('')
+
