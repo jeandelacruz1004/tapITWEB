@@ -12,8 +12,8 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mx-0 mx-lg-1">
-            {% if current_user.is_admin == True %}
-                <a class="nav-link" href=#>Create Event</a>
+            {% if current_user.is_admin == True or current_user.is_faculty == True%}
+                <a class="nav-link" href="{{url_for('new_event')}}">Create Event</a>
             {% else %}
                 <a class="nav-link" href=#>My Events</a>
             {% endif %}
@@ -75,12 +75,13 @@
       {% for event in events%}
       <div class="column">
         <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
+          <img src='{{ image_file }}' class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{ event.title }}</h5>
             <p class="card-text">{{ event.details }}</p>
             <p>{{ event.start_time }}</p>
             <p>{{ event.end_time }}</p>
+            <p>{{ event.date_created }}</p>
             <a href="#" class="btn btn-primary">Details logo here</a>
           </div>
         </div>

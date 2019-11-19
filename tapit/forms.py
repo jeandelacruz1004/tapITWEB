@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.fields.html5 import DateTimeLocalField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional, ValidationError
 from tapit.models import User
 
@@ -59,3 +60,12 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose another one.')
+
+
+class NewEventForm(FlaskForm):
+    title = StringField('Event Title', validators=[DataRequired()])
+    start_time = DateTimeLocalField('Start Time', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
+    end_time = DateTimeLocalField('End Time', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
+    details = StringField('Event Details', validators=[DataRequired()])
+    image_file = FileField('Event Banner', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    submit = SubmitField('Create Event')
