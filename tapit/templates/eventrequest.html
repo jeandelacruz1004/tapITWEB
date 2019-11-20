@@ -37,29 +37,30 @@
 {% block content%}
     <header class="masthead bg-primary text-white text-center" style="padding-bottom:4rem;">
     <div class="container d-flex align-items-center flex-column">
-            <table id="data">
-              <tr>
-                <th>Title</th>
-                <th>Requester</th>
-                <th>Request Date</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-              </tr>
-            {% for event in events %}
-              <tr>
-                <td>{{ event.title }}</td>
+      {% for event in events %}
+      <div class="row">
+        <div class="card-deck">
+            <div class="card" style="width: 18rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" style="color:black">Event Name: {{ event.title}}</h5>
                 {% for user in users %}
                 {% if event.user_id == user.id %}
-                <td>{{ user.first_name + " " + user.last_name }}</td>
+                <p class="card-text" style="color:black">Request by: {{ user.first_name + " " + user.last_name }}</p>
                 {% endif %}
                 {% endfor %}
-                <td>{{ event.date_created.strftime("%b %d,%Y-%H:%M") }}</td>
-                <td>{{ event.start_time.strftime("%b %d,%Y-%H:%M") }}</td>
-                <td>{{ event.end_time.strftime("%b %d,%Y-%H:%M") }}</td>
-                <td><a class="edit-item" type="button" href="#"><img src='{{ url_for("static", filename="img/edit.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;"></a></td>
-              </tr>
-            {% endfor %}
-            </table>
+                <p class="card-text" style="color:black">Details: {{ event.details }}</p>
+                <p class="card-text" style="color:black">Start Time: {{ event.start_time.strftime("%b %d,%Y-%H:%M") }}</p>
+                <p class="card-text" style="color:black">End Time: {{ event.end_time.strftime("%b %d,%Y-%H:%M") }}</p>
+                <p class="card-text" style="color:black">Date Created: {{ event.date_created.strftime("%b %d,%Y-%H:%M") }}</p>
+              </div>
+              <div style="text-align: center;">
+                  <button type="button" class="btn btn-success">Accept</button>
+                  <button type="button" class="btn btn-danger">Reject</button>
+              </div>
+          </div>
+        {% endfor %}
     </div>
+  </div>
   </header>
 {% endblock %}
