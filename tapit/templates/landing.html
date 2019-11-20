@@ -14,7 +14,31 @@
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">My Events</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{url_for('logout')}}"><img src='{{ url_for("static", filename="img/logout.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;"></a>
+                         {% if current_user.is_admin == True %}
+                            <div class="btn-group" style="margin-top: 7px">
+                              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src='{{ url_for("static", filename="img/hamburger.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;">
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" type="button" href="{{url_for('manage_events')}}">Manage Events</a>
+                                <a class="dropdown-item" type="button" href="#">Manage Users</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('logout')}}">Logout</a>
+                              </div>
+                            </div>
+                         {% elif current_user.is_faculty == True %}
+                            <div class="btn-group" style="margin-top: 7px">
+                              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src='{{ url_for("static", filename="img/hamburger.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;">
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" type="button" href="{{url_for('new_event')}}">Create Event</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('logout')}}">Logout</a>
+                              </div>
+                            </div>
+                         {% else %}
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{url_for('logout')}}"><img src='{{ url_for("static", filename="img/logout.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;"></a>
+                         {% endif %}
+
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class='far fa-calendar-alt' style='font-size:46px;color:teal' href="{{url_for('calendar')}}"></a>
@@ -147,10 +171,6 @@
 
     </div>
   </section>
-
-
-  <!-- Footer -->
-
 
   <!-- Copyright Section -->
   <section class="copyright py-4 text-center text-white">
