@@ -62,9 +62,6 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('That email is taken. Please choose another one.')
 
-
-<<<<<<< HEAD
-
 class NewEventForm(FlaskForm):
     title = StringField('Event Title', validators=[DataRequired()])
     start_time = DateTimeLocalField('Start Time', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
