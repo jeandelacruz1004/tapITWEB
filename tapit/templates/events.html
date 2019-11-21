@@ -79,10 +79,12 @@
           <div class="card-body">
             <h5 class="card-title">{{ event.title }}</h5>
             <p class="card-text">{{ event.details }}</p>
-            <p>{{ event.start_time }}</p>
-            <p>{{ event.end_time }}</p>
-            <p>{{ event.date_created }}</p>
-            <a href="#" class="btn btn-primary">Details logo here</a>
+            <p>{{ event.start_time.strftime("%b %d,%Y-%H:%M") }}</p>
+            <p>{{ event.end_time.strftime("%b %d,%Y-%H:%M") }}</p>
+            <p>{{ event.date_created.strftime("%b %d,%Y-%H:%M") }}</p>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-success btn-sm joinBtn" style="width:80px;border-radius:100px;" event_id="{{ event.id }}">Join</button>
+            </div>
           </div>
         </div>
       </div>

@@ -263,3 +263,28 @@ def manage_events():
     return render_template('eventdata.html', title='Manage Events', events=events, users=users)
 
 
+@app.route("/events/requests", methods=['GET', 'POST'])
+@login_required
+def req_event():
+    users = User.query.all()
+    events = Event.query.all()
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    return render_template('eventrequest.html', title='Events Requests', events=events, users=users)
+
+@app.route("/event/<int:event_id>/join", methods=["GET", "POST"])
+@login_required
+def join_event(event_id):
+    if request.method == 'POST':
+        req = request.form['event_id']
+
+        lookRow = db.session.query(join_rel_table).filter(join_rel_table.c.user_id==current_user.userId, join_rel_table.c.event_id==req).first()
+
+        if lookRow is None:
+            statement = join_rel_table.insert().values(user_id=current_user.userId, event_id=req)
+
+            db.session.execute(statement)
+            db.session.commit()
+        
+        return jsonify({'result' : 'success'})
