@@ -2,9 +2,12 @@ import os, secrets
 from PIL import Image
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, current_user, logout_user, login_required
+# from flask_user import roles_required
+
 from tapit import app, db, bcrypt
-from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, PostForm, forms
+from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, forms
 from tapit.models import User, Event
+# from tapit.decorator import admin_login_required
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -28,11 +31,12 @@ def save_picture(form_picture):
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/img/profile', picture_fn)
+    form_picture.save(picture_path)
 
-    output_size = (600, 600)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
+    # output_size = (600, 600)
+    # i = Image.open(form_picture)
+    # i.thumbnail(output_size)
+    # i.save(picture_path)
 
     return picture_fn
 
@@ -77,7 +81,6 @@ def signup():
                     username=form.username.data,
                     email=form.email.data,
                     password=hashed_password)
-        print(user)
         db.session.add(user)
         db.session.commit()
         flash(f'Account created for {form.username.data}! You can now log in', 'success')
@@ -197,7 +200,37 @@ events = [
 @login_required
 # @admin_login_required
 def disp_events():
-    return render_template('events.html', title='Events', events=events)
+    image_file = url_for('static', filename='img/banner' + Event.banner)
+    users = User.query.filter_by(id=id).first
+    events = Event.query.all()
+    return render_template('events.html', title='Events', events=events, users=users, image_file=image_file)
+
+
+@app.route("/events/create", methods=['GET', 'POST'])
+@login_required
+def new_event():
+    if current_user.is_admin is True or current_user.is_faculty is True:
+        image_file = url_for('static', filename='img/banner' + Event.banner)
+        form = NewEventForm()
+        if form.validate_on_submit():
+            newevent = Event(user_id=current_user.id,
+                             title=form.title.data,
+                             start_time=form.start_time.data,
+                             end_time=form.end_time.data,
+                             details=form.details.data
+                             )
+            if form.image_file.data:
+                picture_file = save_picture(form.image_file.data)
+                newevent.image_file = picture_file
+            db.session.add(newevent)
+            db.session.commit()
+            flash(f'Event Successfully Created!', 'success')
+            return redirect(url_for('landing'))
+    else:
+        flash(f'Contact a Faculty in order to create events.', 'warning')
+        return redirect(url_for('landing'))
+
+    return render_template('addevent.html', title='Add Event', form=form, image_file=image_file)
 
 
 @app.route("/calendar")
@@ -219,4 +252,14 @@ def return_data():
     with open("tapit/events.json", "r") as input_data:
        
         return input_data.read()
+@app.route("/events/data", methods=['GET', 'POST'])
+@login_required
+def manage_events():
+    users = User.query.all()
+    events = Event.query.all()
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    return render_template('eventdata.html', title='Manage Events', events=events, users=users)
+
 
