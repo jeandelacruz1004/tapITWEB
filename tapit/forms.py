@@ -81,6 +81,7 @@ class forms(FlaskForm):
     yearlevel = StringField('Year Level', validators=[DataRequired(), Length(min=1, max=15)])
     course_id = StringField('Course ID', validators=[DataRequired(), Length(min=1, max=100)])
     course = StringField('Course Name', validators=[DataRequired(), Length(min=1, max=100)])
+
 class EventForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     start_time = DateTimeField('Start Time', validators=[DataRequired()])

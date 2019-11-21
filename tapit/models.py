@@ -41,7 +41,7 @@ class Event(db.Model):
         return f"User('{self.title}', '{self.start_time}', '{self.end_time}', '{self.details}', '{self.banner}')"
 
 
-class attendance(db.Model):
+class attendance(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     idnumber = db.Column(db.String(25), unique=True, nullable=False)
     firstname = db.Column(db.String(25), unique=True, nullable=False)

@@ -126,19 +126,25 @@ def new_post():
                            form=form, legend='New Post')
 
 
+
 @app.route('/addparticipant',methods=['POST','GET'])
 def addparticipant():
-	form = forms(request.form)
-	if request.method == 'POST':
-		idnumber = request.form['idnumber']
-		firstname = request.form['firstname']
-		lastname = request.form['lastname']
-		gender = request.form['gender']
-		yearlevel = request.form['yearlevel']
-		course_id = request.form['course_id']
-		
-		return redirect('/attendance')
-	return render_template('addparticipant.html',form=form , title='Add')
+    if current_user.is_authenticated:
+        return redirect(url_for('addparticipant'))
+    form = forms(request.method)
+    if form.validate_on_submit():
+        user = User(
+            idnumber=form.idnumber.data,
+            firstname=form.firstname.data,
+                    lastname=form.lastname.data,
+                    gender=form.gender.data,
+                    yearlevel=form.yearlevel.data,
+                    course_id=form.course_id.data)
+        print(user)
+        db.session.add(user)
+        db.session.commit()
+        return redirect('/attendance')
+    return render_template('attendance.html',form=form , title='Add')
 
     
 events = [
