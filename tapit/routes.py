@@ -252,6 +252,7 @@ def return_data():
     with open("tapit/events.json", "r") as input_data:
        
         return input_data.read()
+        
 @app.route("/events/data", methods=['GET', 'POST'])
 @login_required
 def manage_events():

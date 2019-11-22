@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField,TextAreaField, DateTimeField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateTimeField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.fields.html5 import DateTimeLocalField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional, ValidationError
 from tapit.models import User
@@ -95,3 +96,4 @@ class NewEventForm(FlaskForm):
     details = StringField('Event Details', validators=[DataRequired()])
     image_file = FileField('Event Banner', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Create Event')
+
