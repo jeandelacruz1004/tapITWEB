@@ -1,0 +1,225 @@
+{% extends "layout.html" %}
+
+{% block nav %}
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger rainbow" href="#page-top">TapIT</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu
+               <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">My Events</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                         {% if current_user.is_admin == True %}
+                            <div class="btn-group" style="margin-top: 7px">
+                              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src='{{ url_for("static", filename="img/hamburger.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;">
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" type="button" href="{{url_for('disp_events')}}">Manage Events</a>
+                                <a class="dropdown-item" type="button" href="#">Manage Users</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('logout')}}">Logout</a>
+                              </div>
+                            </div>
+                         {% else %}
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{url_for('logout')}}"><img src='{{ url_for("static", filename="img/logout.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;"></a>
+                         {% endif %}
+
+                    </li>
+              </ul>
+        </div>
+    </div>
+{% endblock nav %}
+
+{% block content%}
+    <header class="masthead bg-primary text-white text-center" style="padding-bottom:4rem;">
+    <div class="container d-flex align-items-center flex-column">
+            <table id="data">
+              <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>RFID</th>
+                <th>Email</th>
+                <th>Contact</th>
+              </tr>
+            {% for user in users %}
+              <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name + " " + user.last_name }}</td>
+                <td>{{ user.rfID }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.contact }}</td>
+                <td><a class="edit-item" type="button" data-toggle="modal" data-target="#usermodal{{ user.id }}"><img src='{{ url_for("static", filename="img/edit.png")}}' alt="Edit" style="width: 1.5rem; height: 1.5rem;"></a></td>
+                <td><a class="edit-item" type="button" data-toggle="modal" data-target="#delusermodal{{ user.id }}"><img src='{{ url_for("static", filename="img/delete.png")}}' alt="Del" style="width: 1.5rem; height: 1.5rem;"></a></td>
+              </tr>
+            {% endfor %}
+            </table>
+    </div>
+  </header>
+
+
+  {% for user in users %}
+  <div class="modal fade" id="usermodal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width:70vw">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Account Info</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      </div>
+      <div class="modal-login mx-3">
+        <form method="POST" action="" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+              <div class="row">
+                  <div class="col">
+                      {{ form.image_file.label }}
+                      {{ form.image_file(class="form-control-file") }}
+                      {% if form.image_file.errors %}
+                          {% for error in form.image_file.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                          {% endfor %}
+                      {% endif %}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      {{ form.first_name.label }}
+                      <div class="form-reg">
+                          {% if form.first_name.errors %}
+                              {{ form.first_name(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                   {% for error in form.first_name.errors %}
+                                      <span>{{ error }}</span>
+                                   {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.first_name(class="form-control", placeholder="John") }}
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="col">
+                       {{ form.last_name.label }}
+                       <div class="form-reg">
+                          {% if form.last_name.errors %}
+                          {{ form.last_name(class="form-control form-control-lg is-invalid") }}
+                          <div class="invalid-feedback">
+                               {% for error in form.last_name.errors %}
+                                  <span>{{ error }}</span>
+                               {% endfor %}
+                          </div>
+                          {% else %}
+                              {{ form.last_name(class="form-control", placeholder="Doe") }}
+                          {% endif %}
+                       </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      {{ form.username.label }}
+                      <div class="form-reg">
+                          {% if form.username.errors %}
+                              {{ form.username(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                   {% for error in form.username.errors %}
+                                      <span>{{ error }}</span>
+                                   {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.username(class="form-control", placeholder="JohnDoe") }}
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="col">
+                      {{ form.email.label }}
+                      <div class="form-reg">
+                          {% if form.email.errors %}
+                              {{ form.email(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                   {% for error in form.email.errors %}
+                                      <span>{{ error }}</span>
+                                   {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.email(class="form-control", placeholder="john.doe@email.com") }}
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      {{ form.contact.label }}
+                      <div class="form-reg">
+                          {% if form.contact.errors %}
+                              {{ form.contact(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                   {% for error in form.contact.errors %}
+                                      <span>{{ error }}</span>
+                                   {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.contact(class="form-control", placeholder="Your Contact Number") }}
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="col">
+                      {{ form.rfID.label }}
+                      <div class="form-reg">
+                          {% if form.rfID.errors %}
+                              {{ form.rfID(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                   {% for error in form.rfID.errors %}
+                                      <span>{{ error }}</span>
+                                   {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.rfID(class="form-control", placeholder="Tap your ID") }}
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+              <div class="row" style="margin-bottom: 2rem;">
+                  <div class="col">
+                    {{ form.submit(class="btn btn-primary", id="submit")}}
+                  </div>
+              </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  {% endfor %}
+
+  {% for user in users %}
+  <div class="portfolio-modal modal fade" id="delusermodal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document" style="max-width:800px !important;">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ user.username }}</h2>
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">Remove User?</p>
+                <button class="btn btn-danger" href="#" data-dismiss="modal">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}
