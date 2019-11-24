@@ -147,6 +147,7 @@ def new_event():
     return render_template('addevent.html', title='Add Event', form=form, image_file=image_file)
 
 
+
 @app.route("/events/data", methods=['GET', 'POST'])
 @login_required
 def manage_events():
