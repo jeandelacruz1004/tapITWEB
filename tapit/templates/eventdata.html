@@ -43,6 +43,9 @@
                 <th>Request Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
+                <th>Update</th>
+                
+                
               </tr>
             {% for event in events %}
               <tr>
@@ -55,8 +58,10 @@
                 <td>{{ event.date_created.strftime("%b %d,%Y-%H:%M") }}</td>
                 <td>{{ event.start_time.strftime("%b %d,%Y-%H:%M") }}</td>
                 <td>{{ event.end_time.strftime("%b %d,%Y-%H:%M") }}</td>
-                <td><a class="edit-item" type="button" href="#"><img src='{{ url_for("static", filename="img/edit.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;"></a></td>
-              </tr>
+                <td>
+                  <a class="edit-item" type="button" href="{{url_for('update', id=event.id)}}"><img src='{{ url_for("static", filename="img/edit.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;"></a></td>
+                  
+                </tr>
             {% endfor %}
             </table>
     </div>
