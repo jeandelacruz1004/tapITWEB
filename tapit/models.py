@@ -77,9 +77,10 @@ class Event(db.Model):
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     venue = db.Column(db.String(50), nullable=False)
     image_file = db.Column(db.String(), nullable=False, default='defaultevents.jpg')
+    status = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
-        return f"User('{self.title}', '{self.start_time}', '{self.end_time}', '{self.details}', '{self.banner}', '{self.venue}', '{self.image_file}')"
+        return f"User('{self.title}', '{self.start_time}', '{self.end_time}', '{self.details}', '{self.banner}', '{self.venue}', '{self.image_file}', '{self.status}')"
 
 # user_manager = UserManager(app, db, User)
 # db.create_all()
@@ -123,8 +124,11 @@ class Venue (db.Model):
     equipment = db.Column(db.Integer(), nullable=False)
     image_file = db.Column(db.String(), nullable=False, default='banner.jpg')
     gallery = db.Column(db.String(), nullable=False)
+    status = db.Column(db.String(), nullable=False)
+    participants_list = db.Column(db.String(), nullable=False)
+    is_archived = db.Column(db.String(), nullable=False)
     
-    def __init__(self, college, venue_name, details, equipment, image_file, gallery):
+    def __init__(self, college, venue_name, details, equipment, image_file, gallery,status,particpants_list,is_archived):
         self.college = college
         self.venue_name = venue_name
         self.details = details
@@ -132,6 +136,9 @@ class Venue (db.Model):
         self.equipment = equipment
         self.image_file = image_file
         self.gallery = gallery
+        self.staust = staust
+        self.participants_list = participants_list
+        self.is_archived = is_archived
 
     def get_id(self):
         return unicode(self.id)
