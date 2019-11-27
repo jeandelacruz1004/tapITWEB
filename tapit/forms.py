@@ -71,7 +71,6 @@ class NewEventForm(FlaskForm):
 	#venue = QuerySelectField(query_factory=lambda: Models.Venue.query.all(), allow_blank=False, get_label='name')
     submit = SubmitField('Create Event')
 
-<<<<<<< HEAD
 class AddVenueForm(FlaskForm):
 	name = StringField('Venue Name',validators=[DataRequired()])
 	college = SelectField('College', id='college_id',validators=[DataRequired()], choices=[('1', 'MSU-IIT'), ('2', 'College of Engineering and Technology'), ('3', 'College of Science and Mathematics'), ('4', 'College of Education'), ('5', 'College of Arts and Social Sciences'), ('6', 'College of Business Administration and Accountancy'), ('7', 'College of Nursing'), ('8', 'College of Computer Studies'), ('9', 'Integrated Developmental School'), ('10', 'Premier Research Institute of Science and Mathematics')])
@@ -79,5 +78,3 @@ class AddVenueForm(FlaskForm):
 	equipment = TextAreaField('Equipment',validators=[Optional()])
 	image_file = FileField('Update Picture',validators=[FileAllowed(['jpg', 'png']), DataRequired()])
 	submit = SubmitField('Add Venue')
-=======
->>>>>>> cbb37c2dcd88be960bdca6c0b0837199830206c2
