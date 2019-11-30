@@ -220,4 +220,46 @@ def update_users(id):
         image_file = url_for('static', filename='img/profile/' + users.image_file)
     return render_template('userdata.html', title='Manage Users', users=users, form=form, image_file=image_file)
 
+@app.route("/venue/manage/", methods=['GET'])
+@login_required
+def manage_venue():
+    init_colleges()
+    venues= Venues.query.all()
+    colleges= Colleges.query.all()
+    return render_template('managevenue.html', venues=venues, colleges=colleges)
 
+
+@app.route("/venue/<int:id>", methods=['GET'])
+@login_required
+def display_venue(id):
+    venues = Venue.query.filter_by(college=id)
+    colleges = College.query.all()
+    admins = Admin_acc.query.filter_by(college=id)
+    users = User.query.filter_by(type=1)
+    return render_template('displayvenue.html', venues=venues, admins=admins, users=users, colleges=colleges)
+
+@app.route("/venue", methods=['GET'])
+@login_required
+def venue():
+    venues = Venue.query.all()
+    colleges = College.query.all()
+    return render_template('venue.html', venues=venues, colleges=colleges)
+
+@app.route("/addvenue", methods=['GET', 'POST'])
+@login_required
+def addvenue():
+    if not current_user.is_admin():
+        flash("You don't have permission to access this page.",'error')
+        return redirect(url_for('profile'))
+    else:
+        image_file = url_for('static', filename='images/upload/' + Venue.image_file)
+        form = AddVenueForm()
+        if form.validate_on_submit():
+            if form.image_file.data:
+                picture_file = save_picture(form.image_file.data)
+            newvenue = Venue(name=form.name.data, college=form.college.data, capacity=form.capacity.data, rate=form.rate.data, equipment=form.equipment.data, image_file=picture_file)
+            db.session.add(newvenue)
+            db.session.commit()
+            flash('Venue created.','success')
+            return redirect(url_for('venue'))
+        return render_template('addvenue.html', form=form, image_file=image_file)
