@@ -196,14 +196,22 @@ events = [
 ]
 
 
-@app.route("/events")
+@app.route("/events/")
 @login_required
 # @admin_login_required
 def disp_events():
     image_file = url_for('static', filename='img/banner' + Event.banner)
-    users = User.query.filter_by(id=id).first
     events = Event.query.all()
-    return render_template('events.html', title='Events', events=events, users=users, image_file=image_file)
+    return render_template('events.html', title='Events', events=events, image_file=image_file)
+
+
+@app.route("/events/<int:id>")
+@login_required
+# @admin_login_required
+def disp_event_details(id):
+    image_file = url_for('static', filename='img/banner' + Event.banner)
+    events = Event.query.filter_by(id=id).first()
+    return render_template('events.html', title='Events', events=events, image_file=image_file)
 
 
 @app.route("/events/create", methods=['GET', 'POST'])
@@ -233,6 +241,7 @@ def new_event():
     return render_template('addevent.html', title='Add Event', form=form, image_file=image_file)
 
 
+<<<<<<< HEAD
 @app.route("/calendar")
 def calendar():
     return render_template('calendar.html')
@@ -254,6 +263,9 @@ def return_data():
         return input_data.read()
         
 @app.route("/events/data", methods=['GET', 'POST'])
+=======
+@app.route("/events/data/", methods=['GET', 'POST'])
+>>>>>>> 115e524171efaf84d05cb89417f4bfb980923c51
 @login_required
 def manage_events():
     users = User.query.all()
@@ -264,6 +276,7 @@ def manage_events():
     return render_template('eventdata.html', title='Manage Events', events=events, users=users)
 
 
+<<<<<<< HEAD
 @app.route("/events/requests", methods=['GET', 'POST'])
 @login_required
 def req_event():
@@ -289,3 +302,60 @@ def join_event(event_id):
             db.session.commit()
         
         return jsonify({'result' : 'success'})
+=======
+@app.route("/events/data/<int:id>", methods=['GET', 'POST'])
+@login_required
+def edit_events(id):
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    users = User.query.all()
+    events = Event.query.filter_by(id=id).first()
+    return render_template('eventdata.html', title='Manage Events', events=events, users=users)
+
+
+@app.route("/users/data/", methods=['GET', 'POST'])
+@login_required
+def manage_users():
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    users = User.query.all()
+    form = UpdateAccountForm()
+    return render_template('userdata.html', title='Manage Users', users=users, form=form)
+
+
+@app.route("/users/data/<int:id>/edit", methods=['GET', 'POST'])
+@login_required
+def update_users(id):
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    else:
+        users = User.query.filter_by(id=id).first()
+        form = UpdateAccountForm()
+        if form.validate_on_submit():
+            if form.image_file.data:
+                picture_file = save_picture(form.image_file.data)
+                users.image_file = picture_file
+            users.first_name = form.first_name.data
+            users.last_name = form.last_name.data
+            users.username = form.username.data
+            users.email = form.email.data
+            users.rfID = form.rfID.data
+            users.contact = form.contact.data
+            db.session.commit()
+            flash('Account has been updated!', 'success')
+            return redirect(url_for('landing'))
+        elif request.method == 'GET':
+            form.first_name.data = users.first_name
+            form.last_name.data = users.last_name
+            form.username.data = users.username
+            form.email.data = users.email
+            form.rfID.data = users.rfID
+            form.contact.data = users.contact
+        image_file = url_for('static', filename='img/profile/' + users.image_file)
+    return render_template('userdata.html', title='Manage Users', users=users, form=form, image_file=image_file)
+
+
+>>>>>>> 115e524171efaf84d05cb89417f4bfb980923c51
