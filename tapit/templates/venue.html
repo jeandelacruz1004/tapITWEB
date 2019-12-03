@@ -47,13 +47,13 @@
         <div class="card" style="width: 18rem; margin: 1rem;">
           <img src='{{ image_file }}' class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">{{ venue.name }}</h5>
+            <h5 class="card-title">{{ venue.venue_name }}</h5>
             <p class="card-text">{{ venue.details }}</p>
             <p class="card-text">{{ venue.college }}</p>
             <p>{{ venue.capacity }}</p>
             <p>{{ venue.equipment }}</p>
            
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#eventmodal{{ event.id }}">Event Details</a>
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#venuemodal{{ venue.id }}">Venue Details</a>
           </div>
         </div>
       </div>
@@ -62,8 +62,8 @@
     </div>
   </div>
 
-  {% for event in events %}
-  <div class="portfolio-modal modal fade" id="eventmodal{{ event.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+  {% for venue in venues %}
+  <div class="portfolio-modal modal fade" id="venuemodal{{ venue.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -76,7 +76,7 @@
             <div class="row justify-content-center">
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title -->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ event.name }}</h2>
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ venue.venue_name }}</h2>
                 <!-- Icon Divider -->
                 <div class="divider-custom">
                   <div class="divider-custom-line"></div>
@@ -88,7 +88,7 @@
                 <!-- Portfolio Modal - Image -->
                 <img class="img-fluid rounded mb-5" src="img/portfolio/circus.png" alt="">
                 <!-- Portfolio Modal - Text -->
-                <p class="mb-5">{{ event.college }}</p>
+                <p class="mb-5">{{ venue.college }}</p>
                 <button class="btn btn-primary" href="#" data-dismiss="modal">
                   <i class="fas fa-times fa-fw"></i>
                   Close Window

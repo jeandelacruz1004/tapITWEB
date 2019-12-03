@@ -8,6 +8,7 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 COLLEGENAMES = {
     'MSU-IIT': 1,
     'College of Engineering and Technology': 2,
@@ -32,6 +33,7 @@ COLLEGEID = {
     9: 'IDS',
     10: 'PRISM'
 }
+
 class User(db.Model, UserMixin):
     # __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -52,7 +54,8 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"User('{self.first_name}', '{self.last_name}', '{self.username}', '{self.email}', '{self.image_file}')"
-
+#
+#
 # class Role(db.Model):
 #     __tablename__ = 'roles'
 #     id = db.Column(db.Integer, primary_key=True)
@@ -75,12 +78,9 @@ class Event(db.Model):
     details = db.Column(db.Text, nullable=False)
     banner = db.Column(db.String(20), default='banner.jpg', nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    venue = db.Column(db.String(50), nullable=False)
-    image_file = db.Column(db.String(), nullable=False, default='defaultevents.jpg')
-    status = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
-        return f"User('{self.title}', '{self.start_time}', '{self.end_time}', '{self.details}', '{self.banner}', '{self.venue}', '{self.image_file}', '{self.status}')"
+        return f"User('{self.title}', '{self.start_time}', '{self.end_time}', '{self.details}', '{self.banner}')"
 
 # user_manager = UserManager(app, db, User)
 # db.create_all()
@@ -128,17 +128,8 @@ class Venue(db.Model):
     participants_list = db.Column(db.String(), nullable=False)
     is_archived = db.Column(db.String(), nullable=False)
     
-    def __init__(self, college, venue_name, details, equipment, image_file, gallery,status,particpants_list,is_archived):
-        self.college = college
-        self.venue_name = venue_name
-        self.details = details
-        self.rate = rate
-        self.equipment = equipment
-        self.image_file = image_file
-        self.gallery = gallery
-        self.staust = staust
-        self.participants_list = participants_list
-        self.is_archived = is_archived
+    def __repr__(self):
+        return f"User('{self.venue_name}', '{self.college_id}', '{self.capacity}', '{self.equipment}')"
 
     def get_id(self):
         return unicode(self.id)
