@@ -115,7 +115,7 @@ class Event(db.Model):
 
  
 
-class Venue (db.Model):
+class Venue(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     college_id = db.Column(db.Integer, db.ForeignKey('college.id'), nullable=False)
     venue_name=db.Column(db.String(50), nullable=False)

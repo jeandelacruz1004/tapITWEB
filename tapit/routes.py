@@ -5,8 +5,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 # from flask_user import roles_required
 
 from tapit import app, db, bcrypt
-from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm
-from tapit.models import User, Event
+from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, AddVenueForm
+from tapit.models import User, Event, Venue, College
 # from tapit.decorator import admin_login_required
 
 
@@ -223,10 +223,11 @@ def update_users(id):
 @app.route("/venue/manage/", methods=['GET'])
 @login_required
 def manage_venue():
-    init_colleges()
-    venues= Venues.query.all()
-    colleges= Colleges.query.all()
-    return render_template('managevenue.html', venues=venues, colleges=colleges)
+   
+    venues = Venue.query.all()
+    colleges = College.query.all()
+    return render_template('venue.html', venues=venues, colleges=colleges)
+    
 
 
 @app.route("/venue/<int:id>", methods=['GET'])
@@ -238,21 +239,20 @@ def display_venue(id):
     users = User.query.filter_by(type=1)
     return render_template('displayvenue.html', venues=venues, admins=admins, users=users, colleges=colleges)
 
-@app.route("/venue", methods=['GET'])
+@app.route("/venue", methods=['GET', 'POST'])
 @login_required
 def venue():
+  
     venues = Venue.query.all()
     colleges = College.query.all()
     return render_template('venue.html', venues=venues, colleges=colleges)
+    
 
 @app.route("/addvenue", methods=['GET', 'POST'])
 @login_required
 def addvenue():
-    if not current_user.is_admin():
-        flash("You don't have permission to access this page.",'error')
-        return redirect(url_for('profile'))
-    else:
-        image_file = url_for('static', filename='images/upload/' + Venue.image_file)
+     if current_user.is_admin is True or current_user.is_faculty is True:
+        image_file = url_for('static', filename='img/banner' + Event.banner)
         form = AddVenueForm()
         if form.validate_on_submit():
             if form.image_file.data:
