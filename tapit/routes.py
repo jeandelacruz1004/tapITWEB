@@ -176,7 +176,7 @@ def edit_events(id):
     events = Event.query.filter_by(id=id).first()
     return render_template('eventdata.html', title='Manage Events', events=events, users=users)
 
-
+    
 @app.route("/users/data/", methods=['GET', 'POST'])
 @login_required
 def manage_users():
@@ -219,6 +219,8 @@ def update_users(id):
             form.contact.data = users.contact
         image_file = url_for('static', filename='img/profile/' + users.image_file)
     return render_template('userdata.html', title='Manage Users', users=users, form=form, image_file=image_file)
+
+
 
 @app.route("/venue/manage/", methods=['GET'])
 @login_required
