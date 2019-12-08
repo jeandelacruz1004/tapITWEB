@@ -292,3 +292,9 @@
     transparent;
     border: 0;
 }
+
+.eventcont{
+    justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+}
