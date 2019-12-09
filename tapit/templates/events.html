@@ -83,9 +83,7 @@
             <p>{{ event.end_time.strftime("%b %d,%Y-%H:%M") }}</p>
             <p>{{ event.date_created.strftime("%b %d,%Y-%H:%M") }}</p>
             <div style="text-align: center;">
-              <div class="col-md-auto" style="width:150px;padding-left:55px;">
-                  <button type="button" class="btn btn-success btn-sm joinBtn" style="width:80px;border-radius:100px;" event_id="{{ event.eventId }}" bottom_block="{{ bottomBlock }}">Join</button>
-              </div>
+              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#eventmodal{{ event.id }}">Event Details</a>
           </div>
         </div>
       </div>

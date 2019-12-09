@@ -69,3 +69,10 @@ class NewEventForm(FlaskForm):
     details = StringField('Event Details', validators=[DataRequired()])
     image_file = FileField('Event Banner', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Create Event')
+
+class EditEventForm(FlaskForm):
+    title = StringField('Event Title')
+    start_time = DateTimeLocalField('Start Time', format='%Y-%m-%dT%H:%M')
+    end_time = DateTimeLocalField('End Time', format='%Y-%m-%dT%H:%M')
+    details = StringField('Event Details')
+    update = SubmitField('Update Event')

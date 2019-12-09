@@ -5,7 +5,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 # from flask_user import roles_required
 
 from tapit import app, db, bcrypt
-from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm
+from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, EditEventForm
 from tapit.models import User, Event
 # from tapit.decorator import admin_login_required
 
@@ -160,10 +160,11 @@ def new_event():
 def manage_events():
     users = User.query.all()
     events = Event.query.all()
+    form = EditEventForm()
     if current_user.is_admin is not True:
         flash(f'You should be an administrator to access this page', 'warning')
         return redirect(url_for('landing'))
-    return render_template('eventdata.html', title='Manage Events', events=events, users=users)
+    return render_template('eventdata.html', title='Manage Events', events=events, users=users, form=form)
 
 
 @app.route("/events/requests", methods=['GET', 'POST'])
@@ -205,9 +206,25 @@ def edit_events(id):
     if current_user.is_admin is not True:
         flash(f'You should be an administrator to access this page', 'warning')
         return redirect(url_for('landing'))
-    users = User.query.all()
-    events = Event.query.filter_by(id=id).first()
-    return render_template('eventdata.html', title='Manage Events', events=events, users=users)
+        form = EditEventForm()
+        users = User.query.all()
+        events = Event.query.filter_by(id=id).first()
+        
+        if form.validate_on_submit():
+            event.title = form.title.data
+            event.start_time = form.start_time.data
+            event.end_time = form.end_time.data
+            event.details = form.details.data
+            db.session.commit()
+            flash('Event has been updated!', 'success')
+            return redirect(url_for('landing'))
+        elif request.method == 'GET':
+            form.title.data = event.title
+            form.start_time.data = event.start_time
+            form.end_time.data = event.end_time
+            form.details.data = event.details
+    
+    return render_template('eventdata.html', title='Manage Events', events=events, users=users, form=form)
 
 
 @app.route("/users/data/", methods=['GET', 'POST'])
@@ -218,7 +235,7 @@ def manage_users():
         return redirect(url_for('landing'))
     users = User.query.all()
     form = UpdateAccountForm()
-    return render_template('userdata.html', title='Manage Users', users=users, form=form)
+    return render_template('userdata.html', title='Manage Users', users=users, form=form, image_file=image_file)
 
 
 @app.route("/users/data/<int:id>/edit", methods=['GET', 'POST'])
@@ -240,9 +257,11 @@ def update_users(id):
             users.email = form.email.data
             users.rfID = form.rfID.data
             users.contact = form.contact.data
+
             db.session.commit()
             flash('Account has been updated!', 'success')
             return redirect(url_for('landing'))
+
         elif request.method == 'GET':
             form.first_name.data = users.first_name
             form.last_name.data = users.last_name
