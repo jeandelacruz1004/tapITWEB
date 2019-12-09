@@ -235,7 +235,21 @@ def manage_users():
         return redirect(url_for('landing'))
     users = User.query.all()
     form = UpdateAccountForm()
-    return render_template('userdata.html', title='Manage Users', users=users, form=form, image_file=image_file)
+    return render_template('userdata.html', title='Manage Users', users=users, form=form)
+
+@app.route("/users/data/<int:id>/delete", methods=['GET','POST'])
+@login_required
+def delete_user(id):
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    else:
+        user = User.query.filter_by(id=id).first()
+        db.session.delete(user)
+        db.session.commit()
+        flash(f'User has been deleted!', 'success')
+        return redirect(url_for('manage_users'))
+    return render_template('userdata.html', title='Manage Users', user=user)
 
 
 @app.route("/users/data/<int:id>/edit", methods=['GET', 'POST'])
@@ -271,5 +285,19 @@ def update_users(id):
             form.contact.data = users.contact
         image_file = url_for('static', filename='img/profile/' + users.image_file)
     return render_template('userdata.html', title='Manage Users', users=users, form=form, image_file=image_file)
+
+@app.route("/events/data/<int:id>/delete", methods=['GET','POST'])
+@login_required
+def delete_event(id):
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    else:
+        event = Event.query.filter_by(id=id).first()
+        db.session.delete(event)
+        db.session.commit()
+        flash(f'Event has been deleted!', 'success')
+        return redirect(url_for('manage_events'))
+    return render_template('eventdata.html', title='Manage Events', event=event)
 
 
