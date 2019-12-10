@@ -22,6 +22,7 @@
         <div class="card" style="width:50rem;margin:calc(3rem + 100px);">
             <div class="card-body" style="padding:65px 30px;">
                 <form method="POST" action="{{url_for('addvenue')}}">
+                  {{ form.csrf_token }}
                     {{ form.hidden_tag() }}
                     <div class="row">
                         <div class="col">

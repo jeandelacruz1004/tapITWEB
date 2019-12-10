@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+
+{% block nav %}
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger rainbow" href="#page-top">TapIT</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu
+               <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Venues</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                         {% if current_user.is_admin == True %}
+                            <div class="btn-group" style="margin-top: 7px">
+                              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src='{{ url_for("static", filename="img/hamburger.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;">
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" type="button" href="{{url_for('disp_events')}}">Manage Events</a>
+                                <a class="dropdown-item" type="button" href="#">Manage Users</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('logout')}}">Logout</a>
+                              </div>
+                            </div>
+                         {% else %}
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{url_for('logout')}}"><img src='{{ url_for("static", filename="img/logout.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;"></a>
+                         {% endif %}
+
+                    </li>
+              </ul>
+        </div>
+    </div>
+{% endblock nav %}
+
+{% block content%}
+    <header class="masthead bg-primary text-white text-center" style="padding-bottom:4rem;">
+    <div class="container d-flex align-items-center flex-column">
+            <table id="data">
+              <tr>
+                <th>Venue Name</th>
+                <th>College</th>
+                <th>Capacity</th>
+
+                <th>Equipment</th>
+              </tr>
+            {% for venue in venues %}
+
+              <tr>
+                <td>{{ venue.venue_name }}</td>
+
+                <td>{{ venue.college_id }}</td>
+
+                <td>{{ venue.capacity }}</td>
+
+                <td>{{venue.equipment  }}</td>
+                <td><a class="edit-item" type="button" data-toggle="modal" data-target="#eventmodal{{ venue.id }}"><img src='{{ url_for("static", filename="img/edit.png")}}' alt="Edit" style="width: 1.5rem; height: 1.5rem;"></a></td>
+                <td><a class="edit-item" type="button" data-toggle="modal" data-target="#deleventmodal{{ venue.id }}"><img src='{{ url_for("static", filename="img/delete.png")}}' alt="Edit" style="width: 1.5rem; height: 1.5rem;"></a></td>
+              </tr>
+            {% endfor %}
+            </table>
+    </div>
+  </header>
+
+
+  {% for venue in venues %}
+  <div class="portfolio-modal modal fade" id="eventmodal{{ venue.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ venue.venue_name }}</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" src="img/portfolio/circus.png" alt="">
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">{{ venue.details }}</p>
+                <button class="btn btn-warning" href="#" data-dismiss="modal">
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% for venue in venues %}
+  <div class="portfolio-modal modal fade" id="deleventmodal{{ venue.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document" style="max-width:800px !important;">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ venue.venue_name }}</h2>
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">Are you sure you want to remove the event?</p>
+                <button class="btn btn-danger" href="#" data-dismiss="modal">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}

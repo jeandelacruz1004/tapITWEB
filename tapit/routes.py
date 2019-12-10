@@ -230,7 +230,7 @@ def manage_venue():
         return redirect(url_for('landing'))
     venues = Venue.query.all()
     colleges = College.query.all()
-    return render_template('venue.html', venues=venues, colleges=colleges)
+    return render_template('manage_ven.html', venues=venues, colleges=colleges)
     
 
 
@@ -255,15 +255,36 @@ def venue():
 @app.route("/venue/create", methods=['GET', 'POST'])
 @login_required
 def addvenue():
-     if current_user.is_admin is True or current_user.is_faculty is True:
+    if current_user.is_admin is True or current_user.is_faculty is True:
         image_file = url_for('static', filename='img/banner' + Event.banner)
+        print("banner")
         form = AddVenueForm()
         if form.validate_on_submit():
+            print("validated")
+            newvenue = Venue(venue_name=form.venue_name.data,
+                        college=form.college.data,
+                        capacity=form.capacity.data, 
+                        equipment=form.equipment.data, 
+                        image_file=picture_file
+                        )
             if form.image_file.data:
                 picture_file = save_picture(form.image_file.data)
-            newvenue = Venue(venue_name=form.venue_name.data, college=form.college.data, capacity=form.capacity.data, rate=form.rate.data, equipment=form.equipment.data, image_file=picture_file)
+                newvenue.image_file = picture_file
             db.session.add(newvenue)
             db.session.commit()
             flash('Venue created.','success')
-            return redirect(url_for('venue'))
-        return render_template('addvenue.html', form=form, image_file=image_file)
+            return redirect(url_for('landing'))
+    else:
+        flash(f'Contact a Faculty in order to create venues.', 'warning')
+        return redirect(url_for('landing'))
+    return render_template('addvenue.html', form=form, image_file=image_file)
+
+@app.route("/venue/edit/<int:id>", methods=['GET', 'POST'])
+@login_required
+def edit_venue(id):
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    users = User.query.all()
+    venues = Venue.query.filter_by(id=id).first()
+    return render_template('edit_venue.html', title='Manage Events', venues=venues, users=users)

@@ -1,10 +1,8 @@
 {% extends "layout.html" %}
-{% block css %}
-{% endblock css %}
 
 {% block nav %}
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="/home">TapIT</a>
+      <a class="navbar-brand js-scroll-trigger" href="{{url_for('home')}}">TapIT</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -12,98 +10,100 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mx-0 mx-lg-1">
-            {% if current_user.is_admin == True or current_user.is_faculty == True%}
-                <a class="nav-link" href="{{url_for('addvenue')}}">Create Venue</a>
-            {% else %}
-                <a class="nav-link" href=#>Venue</a>
-            {% endif %}
+            <a class="nav-link" href="{{url_for('manage_venue')}}">Back</a>
           </li>
         </ul>
       </div>
     </div>
-{% endblock nav %}
+{% endblock%}
 
 {% block content %}
-  <header class="masthead bg-primary text-white text-center">
-    <div class="container d-flex align-items-center flex-column">
-    
-        
-
-        <!-- The slideshow -->
-       
-          <div class="carousel-item active"></div>
-         
-        </div>
-
-       
-      </div>
-    </div>
-  </header>
-  <div class="event-container">
-    <div class="eventcont">
-
-      {% for venue in venues%}
-      <div class="column">
-        <div class="card" style="width: 18rem; margin: 1rem;">
-          <img src='{{ image_file }}' class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{ venue.venue_name }}</h5>
-            <p class="card-text">{{ venue.details }}</p>
-            <p class="card-text">{{ venue.college }}</p>
-            <p>{{ venue.capacity }}</p>
-            <p>{{ venue.equipment }}</p>
-           
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#venuemodal{{ venue.id }}">Venue Details</a>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-
-    </div>
-  </div>
-
-  {% for venue in venues %}
-  <div class="portfolio-modal modal fade" id="venuemodal{{ venue.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">
-            <i class="fas fa-times"></i>
-          </span>
-        </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <!-- Portfolio Modal - Title -->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ venue.venue_name }}</h2>
-                <!-- Icon Divider -->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon">
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Modal - Image -->
-                <img class="img-fluid rounded mb-5" src="img/portfolio/circus.png" alt="">
-                <!-- Portfolio Modal - Text -->
-                <p class="mb-5">{{ venue.college }}</p>
-                <button class="btn btn-primary" href="#" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
-              </div>
+    <div class="container" style="margin-top:50px;">
+        <div class="card" style="width:50rem;margin:calc(3rem + 100px);">
+            <div class="card-body" style="padding:65px 30px;">
+                <form method="POST" action="{{url_for('addvenue')}}">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <div class="col">
+                            {{ form.venue_name.label }}
+                            <div class="form-reg">
+                                {% if form.venue_name.errors %}
+                                    {{ form.venue_name(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                         {% for error in form.venue_name.errors %}
+                                            <span>{{ error }}</span>
+                                         {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.venue_name(class="form-control", placeholder="Venue") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col">
+                             {{ form.college.label }}
+                             <div class="form-reg">
+                                {% if form.college.errors %}
+                                {{ form.college(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                     {% for error in form.college.errors %}
+                                        <span>{{ error }}</span>
+                                     {% endfor %}
+                                </div>
+                                {% else %}
+                                    {{ form.college(class="form-control", placeholder="College") }}
+                                {% endif %}
+                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ form.capacity.label }}
+                            <div class="form-reg">
+                                {% if form.capacity.errors %}
+                                    {{ form.capacity(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                         {% for error in form.capacity.errors %}
+                                            <span>{{ error }}</span>
+                                         {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.capacity(class="form-control", placeholder="Capacity") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form.equipment.label }}
+                            <div class="form-reg">
+                                {% if form.equipment.errors %}
+                                    {{ form.equipment(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                         {% for error in form.equipment.errors %}
+                                            <span>{{ error }}</span>
+                                         {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.equipment(class="form-control", placeholder="Equipments") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="row">-->
+<!--                        <div class="col">-->
+<!--                            {{ form.image_file.label }}-->
+<!--                            {{ form.image_file(class="form-control-file") }}-->
+<!--                            {% if form.image_file.errors %}-->
+<!--                                {% for error in form.image_file.errors %}-->
+<!--                                    <span class="text-danger">{{ error }}</span>-->
+<!--                                {% endfor %}-->
+<!--                            {% endif %}-->
+<!--                        </div>-->
+<!--                      </div>-->
+                    {{ form.submit(class="btn btn-primary")}}
+                </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  {% endfor %}
-
-
-{% endblock content %}
+{% endblock%}
 
 {% block script %}
-{% endblock script %}
+{% endblock%}
