@@ -121,7 +121,7 @@ class Venue(db.Model):
     venue_name=db.Column(db.String(50), nullable=False)
     details=db.Column(db.String(50), nullable=False)
     capacity = db.Column(db.Integer(), nullable=False)
-    equipment = db.Column(db.Integer(), nullable=False)
+    equipment = db.Column(db.String(), nullable=False)
     image_file = db.Column(db.String(), nullable=False, default='banner.jpg')
     gallery = db.Column(db.String(), nullable=False)
     status = db.Column(db.String(), nullable=False)
