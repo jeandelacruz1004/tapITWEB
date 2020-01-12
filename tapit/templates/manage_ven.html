@@ -2,7 +2,7 @@
 
 {% block nav %}
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger rainbow" href="#page-top">TapIT</a>
+        <a class="navbar-brand js-scroll-trigger rainbow" href="{{url_for('landing')}}">TapIT</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu
                <i class="fas fa-bars"></i>
         </button>
@@ -18,7 +18,9 @@
                                 <img src='{{ url_for("static", filename="img/hamburger.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;">
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" type="button" href="{{url_for('disp_events')}}">Manage Events</a>
+                                
+                                <a class="dropdown-item" type="button" href="{{url_for('disp_venue')}}">Add Venues</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('manage_events')}}">Manage Events</a>
                                 <a class="dropdown-item" type="button" href="#">Manage Users</a>
                                 <a class="dropdown-item" type="button" href="{{url_for('logout')}}">Logout</a>
                               </div>

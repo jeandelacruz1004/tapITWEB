@@ -244,12 +244,14 @@ def display_venue(id):
     return render_template('displayvenue.html', venues=venues, admins=admins, users=users, colleges=colleges)
 
 
+
 @app.route("/venue/")
 @login_required
-def venue():
+def disp_venue():
+    image_file = url_for('static', filename='img/banner' + Event.banner)
     venues = Venue.query.all()
     colleges = College.query.all()
-    return render_template('venue.html', venues=venues, colleges=colleges)
+    return render_template('venue.html', venues=venues, colleges=colleges, image_file=image_file)
     
 
 @app.route("/venue/create", methods=['GET', 'POST'])
