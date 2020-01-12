@@ -25,123 +25,92 @@
 
 {% block content %}
   <header class="masthead bg-primary text-white text-center">
-    <div class="container d-flex align-items-center flex-column">
-        <div id="demo" class="carousel slide" data-ride="carousel" style=" width:100%; height: auto">
-           
-        
-        </div></div>
+    <div class="container d-flex align-items-center flex-column"><div id="demo" class="carousel slide" data-ride="carousel" style=" width:100%; height: auto"></div></div>
         
         <div class="row">
             <div class="col-sm-6">
-                <div class="cards" style="width: 18rem;  height:30rem;">
-                    <img class="card-img-top" src='{{ url_for("static", filename="img/IIT.jpg")}}' alt="Card image cap">
+                <div class="cards" style="width: 18rem;  height:31rem; margin-bottom: 1rem;">
+                    <img class="card-img-top" src='{{ url_for("static", filename="img/CASS.png")}}' alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">MSU IIT</h5>
+                        <h5 class="card-title">CASSALIDA AMPITHEATER</h5>
                         <p class="card-text"></p>
                     </div>
                         <ul class="list-group list-group-flush">
-                            <i class="fa fa-map-marker" style="font-size:16px; text-align:left">  Andres Bonifacio Ave, Iligan City, 9200 Lanao del Norte</i><br>
+                            <i class="fa fa-map-marker" style="font-size:16px; text-align:left"> CASS</i><br>
                             <i class="fa fa-clock" style="font-size:16px; text-align:left">  8:00 am - 5:00 pm</i><br>
-                            <i class="fa fa-calendar" style="font-size:16px; text-align:left"> January 10,2020</i>
+                            <i class="fa fa-users" style="font-size:16px; text-align:left"> 100 persons</i><br>
+                            <i class="fa fa-wrench" style="font-size:16px; text-align:left"> Chairs, Microphone, Tables</i>
                         </ul>
-                        <div class="card-body" >
+                    <div class="card-body" >
                         <a href="#" class=" btn btn-primary"style="height:500px;width:200px" >Edit</a>
                         <a href="#" class=" btn btn-danger" style="height:200px;width:200px" >Delete</a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6" display="flex">
-                <div class="cards" style="width: 18rem; height:30rem;">
+                <div class="cards" style="width: 18rem; height:31rem;  margin-bottom: 1rem;">
                     <img class="card-img-top" src='{{ url_for("static", filename="img/CASS.png")}}' alt="Card image cap">
+                    
                     <div class="card-body">
                         <h5 class="card-title">CASS</h5>
                         <p class="card-text"></p>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <i class="fa fa-map-marker" style="font-size:16px; text-align:left">  MSU-IIT CAMPUS, Andres Bonifacio Ave, Iligan City, 9200 Lanao del Norte</i><br>
-                        <i class="fa fa-clock" style="font-size:16px; text-align:left">  8:00 am - 5:00 pm</i><br>
-                        <i class="fa fa-calendar" style="font-size:16px; text-align:left"> January 10,2020</i>
+                        <ul class="list-group list-group-flush">
+                            <i class="fa fa-map-marker" style="font-size:16px; text-align:left">  MSU-IIT CAMPUS, Andres Bonifacio Ave, Iligan City, 9200 Lanao del Norte</i><br>
+                            <i class="fa fa-clock" style="font-size:16px; text-align:left">  8:00 am - 5:00 pm</i><br>
+                            <i class="fa fa-calendar" style="font-size:16px; text-align:left"> January 10,2020</i>
                         </ul>
+                    <div class="card-body" >
+                        <a href="#" class=" btn btn-primary"style="height:500px;width:200px" >Edit</a>
+                        <a href="#" class=" btn btn-danger" style="height:200px;width:200px" >Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6" display="flex">
+                <div class="cards" style="width: 18rem; height:31rem; margin-bottom: 1rem;">
+                    <img class="card-img-top" src='{{ url_for("static", filename="img/CASS.png")}}' alt="Card image cap">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">CASS</h5>
+                        <p class="card-text"></p>
+                    </div>
+                        <ul class="list-group list-group-flush">
+                            <i class="fa fa-map-marker" style="font-size:16px; text-align:left">  MSU-IIT CAMPUS, Andres Bonifacio Ave, Iligan City, 9200 Lanao del Norte</i><br>
+                            <i class="fa fa-clock" style="font-size:16px; text-align:left">  8:00 am - 5:00 pm</i><br>
+                            <i class="fa fa-calendar" style="font-size:16px; text-align:left"> January 10,2020</i>
+                        </ul>
+                    <div class="card-body" >
+                        <a href="#" class=" btn btn-primary"style="height:500px;width:200px" >Edit</a>
+                        <a href="#" class=" btn btn-danger" style="height:200px;width:200px" >Delete</a>
+                    </div>
+                </div>
+            </div>
+
+            {% for venue in venues%}
+                <div class="col-sm-6" display="flex">
+                    <div class="cards" style="width: 18rem; height:31rem; margin-bottom: 1rem;">
+                        <img class="card-img-top" src='{{ url_for("static", filename="img/IIT.jpg")}}' alt="Card image cap">
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ venue.venue_name }}</h5>
+                            <p class="card-text"></p>
+                        </div>
+                            <ul class="list-group list-group-flush">
+                                <i class="fa fa-map-marker" style="font-size:16px; text-align:left"> {{ venue.college }}</i><br>
+                                <i class="fa fa-clock" style="font-size:16px; text-align:left">  8:00 am - 5:00 pm</i><br> 
+                                <i class="fa fa-users" style="font-size:16px; text-align:left"> {{ venue.capacity }}</i><br> 
+                                <i class="fa fa-wrench" style="font-size:16px; text-align:left"> {{ venue.equipment }}</i>
+                            </ul>
                         <div class="card-body" >
-                            <a href="#" class=" btn btn-primary"style="height:500px;width:200px" >Edit</a>
+                            <a href="{{url_for('addvenue')}}" class=" btn btn-primary"style="height:500px;width:200px">Edit</a>
                             <a href="#" class=" btn btn-danger" style="height:200px;width:200px" >Delete</a>
                         </div>
+                    </div>
                 </div>
-            </div>  
-        
+            {% endfor %}
+  
         </div>
-
-
 </header>
-  
-  
-  
-  
-  
-  
-  <!-- Added Venuee-->
-  
-  <div class="event-container">
-    <div class="eventcont">
-
-      {% for event in events%}
-      <div class="column">
-        <div class="card" style="width: 18rem; margin: 1rem;">
-          <img src='{{ image_file }}' class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{ event.title }}</h5>
-            <p class="card-text">{{ event.details }}</p>
-            <p>{{ event.start_time }}</p>
-            <p>{{ event.end_time }}</p>
-            <p>{{ event.date_created }}</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#eventmodal{{ event.id }}">Event Details</a>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-
-    </div>
-  </div>
-
-  {% for event in events %}
-  <div class="portfolio-modal modal fade" id="eventmodal{{ event.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">
-            <i class="fas fa-times"></i>
-          </span>
-        </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <!-- Portfolio Modal - Title -->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ event.title }}</h2>
-                <!-- Icon Divider -->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon">
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Modal - Image -->
-                <img class="img-fluid rounded mb-5" src="img/portfolio/circus.png" alt="">
-                <!-- Portfolio Modal - Text -->
-                <p class="mb-5">{{ event.details }}</p>
-                <button class="btn btn-primary" href="#" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
 
 
 {% endblock content %}

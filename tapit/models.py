@@ -123,10 +123,7 @@ class Venue(db.Model):
     capacity = db.Column(db.Integer(), nullable=False)
     equipment = db.Column(db.String(), nullable=False)
     image_file = db.Column(db.String(), nullable=False, default='banner.jpg')
-    gallery = db.Column(db.String(), nullable=False)
-    status = db.Column(db.String(), nullable=False)
-    participants_list = db.Column(db.String(), nullable=False)
-    is_archived = db.Column(db.String(), nullable=False)
+
     
     def __repr__(self):
         return f"User('{self.venue_name}', '{self.college_id}', '{self.capacity}', '{self.equipment}')"

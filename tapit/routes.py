@@ -258,17 +258,20 @@ def disp_venue():
 @login_required
 def addvenue():
     if current_user.is_admin is True or current_user.is_faculty is True:
-        image_file = url_for('static', filename='img/banner' + Event.banner)
+        image_file = url_for('static',filename="img/IIT.png")
         print("banner")
         form = AddVenueForm()
         if form.validate_on_submit():
             print("validated")
             newvenue = Venue(venue_name=form.venue_name.data,
-                        college=form.college.data,
+                        details=form.details.data,
+                        college_id=form.college.data,
                         capacity=form.capacity.data, 
-                        equipment=form.equipment.data, 
-                        image_file=picture_file
+                        equipment=form.equipment.data
+                       
                         )
+            print(newvenue.college_id)
+
             if form.image_file.data:
                 picture_file = save_picture(form.image_file.data)
                 newvenue.image_file = picture_file
@@ -289,4 +292,4 @@ def edit_venue(id):
         return redirect(url_for('landing'))
     users = User.query.all()
     venues = Venue.query.filter_by(id=id).first()
-    return render_template('edit_venue.html', title='Manage Events', venues=venues, users=users)
+    return render_template('edit_venue.html', title='Manage Venue', venues=venues, users=users)
