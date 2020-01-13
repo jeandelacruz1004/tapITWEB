@@ -3,9 +3,10 @@ from PIL import Image
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, current_user, logout_user, login_required
 # from flask_user import roles_required
+
 from tapit import app, db, bcrypt
-from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, AddVenueForm, UpdateVenueForm
-from tapit.models import User, Event, Venue, College
+from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm
+from tapit.models import User, Event
 # from tapit.decorator import admin_login_required
 
 
@@ -138,7 +139,7 @@ def new_event():
                              title=form.title.data,
                              start_time=form.start_time.data,
                              end_time=form.end_time.data,
-                             details=form.details.data  
+                             details=form.details.data
                              )
             if form.image_file.data:
                 picture_file = save_picture(form.image_file.data)
@@ -175,7 +176,7 @@ def edit_events(id):
     events = Event.query.filter_by(id=id).first()
     return render_template('eventdata.html', title='Manage Events', events=events, users=users)
 
-    
+
 @app.route("/users/data/", methods=['GET', 'POST'])
 @login_required
 def manage_users():
@@ -187,138 +188,15 @@ def manage_users():
     return render_template('userdata.html', title='Manage Users', users=users, form=form)
 
 
-@app.route("/users/data/<int:id>/edit", methods=['GET', 'POST'])
+@app.route("/users/data/<int:user_id>/delete", methods=['GET','POST'])
 @login_required
-def update_users(id):
+def delete_user(user_id):
     if current_user.is_admin is not True:
         flash(f'You should be an administrator to access this page', 'warning')
         return redirect(url_for('landing'))
     else:
-        users = User.query.filter_by(id=id).first()
-        form = UpdateAccountForm()
-        if form.validate_on_submit():
-            if form.image_file.data:
-                picture_file = save_picture(form.image_file.data)
-                users.image_file = picture_file
-            users.first_name = form.first_name.data
-            users.last_name = form.last_name.data
-            users.username = form.username.data
-            users.email = form.email.data
-            users.rfID = form.rfID.data
-            users.contact = form.contact.data
-            db.session.commit()
-            flash('Account has been updated!', 'success')
-            return redirect(url_for('landing'))
-        elif request.method == 'GET':
-            form.first_name.data = users.first_name
-            form.last_name.data = users.last_name
-            form.username.data = users.username
-            form.email.data = users.email
-            form.rfID.data = users.rfID
-            form.contact.data = users.contact
-        image_file = url_for('static', filename='img/profile/' + users.image_file)
-    return render_template('userdata.html', title='Manage Users', users=users, form=form, image_file=image_file)
-
-
-
-@app.route("/venue/manage/", methods=['GET'])
-@login_required
-def manage_venue():
-    if current_user.is_admin is not True:
-        flash(f'You should be an administrator to access this page', 'warning')
-        return redirect(url_for('landing'))
-    venues = Venue.query.all()
-    colleges = College.query.all()
-    return render_template('manage_ven.html', venues=venues, colleges=colleges)
-    
-
-
-@app.route("/venue/<int:id>", methods=['GET', 'POST'])
-@login_required
-def display_venue(id):
-    venues = Venue.query.filter_by(college=id)
-    colleges = College.query.all()
-    admins = Admin_acc.query.filter_by(college=id)
-    users = User.query.filter_by(type=1)
-    return render_template('displayvenue.html', venues=venues, admins=admins, users=users, colleges=colleges)
-
-
-
-@app.route("/venue/", methods=['GET', 'POST'])
-@login_required
-def disp_venue():
-    image_file = url_for('static', filename='img/banner' + Event.banner)
-    venues = Venue.query.all()
-    form = UpdateVenueForm()
-    colleges = College.query.filter_by(id = Venue.college_id)
-
-    return render_template('venue.html', venues=venues, colleges=colleges, form=form, image_file=image_file)
-    
-
-@app.route("/venue/create", methods=['GET', 'POST'])
-@login_required
-def addvenue():
-    if current_user.is_admin is True or current_user.is_faculty is True:
-        image_file = url_for('static',filename="img/IIT.png")
-        print("banner")
-        form = AddVenueForm()
-        if form.validate_on_submit():
-            print("validated")
-            newvenue = Venue(venue_name=form.venue_name.data,
-                        details=form.details.data,
-                        college_id=form.college.data,
-                        capacity=form.capacity.data, 
-                        equipment=form.equipment.data
-                       
-                        )
-            print(newvenue.college_id)
-            db.session.add(newvenue)
-            db.session.commit()
-            flash('Venue created.','success')
-            return redirect(url_for('landing'))
-    else:
-        flash(f'Contact a Faculty in order to create venues.', 'warning')
-        return redirect(url_for('landing'))
-    return render_template('addvenue.html', form=form, image_file=image_file)
-
-@app.route("/venues/data/<int:id>/edit", methods=['GET', 'POST'])
-@login_required
-def update_venue(id):
-    if current_user.is_admin is not True:
-        flash(f'You should be an administrator to access this page', 'warning')
-        return redirect(url_for('landing'))
-    else:
-        venues = Venue.query.filter_by(id=id).first()
-        form = UpdateVenueForm()
-        if form.validate_on_submit():
-    
-            print('valid')
-            venues.venue_name = form.venue_name.data
-            venues.details = form.details.data
-            venues.college_id = form.college.data
-            venues.capacity = form.capacity.data
-            venues.equipment = form.equipment.data
-            db.session.commit()
-            flash('Venue has been updated!', 'success')
-            return redirect(url_for('landing'))
-        elif request.method == 'GET':
-            form.venue_name.data = venues.venue_name
-            form.details.data = venues.details
-            form.college.data = venues.college_id
-            form.capacity.data = venues.capacity
-            form.equipment.data = venues.equipment
-           
-    return render_template('venue.html', title='Manage Venue', venues=venues, form=form)
-
-@app.route("/venue/deletevenue/<int:id>", methods=['GET','POST'])
-@login_required
-def deletevenue(id):
-    venue = Venue.query.filter_by(id=id).first()
-    if venue != None:
-        db.session.delete(venue)
+        user = User.query.filter_by(id=user_id).first()
+        db.session.delete(user)
         db.session.commit()
-        flash('Venue has been deleted.')
-    else:
-        flash('No such venue exists!')
-    return redirect(url_for('manage_venue'))
-
+        flash(f'User {user.username} deleted!', 'success')
+        return redirect(url_for('manage_users'))
