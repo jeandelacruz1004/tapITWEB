@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField,IntegerField,HiddenField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField,BooleanField, SelectField,IntegerField,HiddenField
 from wtforms.fields.html5 import DateTimeLocalField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional, ValidationError
 from tapit.models import User

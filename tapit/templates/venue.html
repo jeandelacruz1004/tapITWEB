@@ -86,9 +86,8 @@
                                 <i class="fa fa-wrench" style="font-size:16px; text-align:left"> {{ venue.equipment }}</i>
                             </ul>
                         <div class="card-body" >
-                            <a  class=" btn btn-primary"style="height:500px;width:200px" data-toggle="modal" data-target="#modalUpdate{{venue.id}}">Edit</a>
-                            <a  class=" btn btn-danger" style="height:200px;width:200px" data-toggle="modal" data-target="#delvenuemodal{{ venue.id }}">Delete</a>
-                        </div>
+                            <a  class=" btn btn-primary"style="height:500px;width:200px" data-toggle="modal" data-target="#modalUpdate{{ venue.id}}">Edit</a>
+                            <a  class=" btn btn-danger" style="height:200px;width:200px" href="/venue/data/{{ venue.id }}/delete" onclick="return confirm('Are you sure you want to delete {{venue.id}}?')">Delete</a>                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -204,33 +203,33 @@
           {%endfor%}
 
           {% for venue in venues %}
-            <div class="portfolio-modal modal fade" id="delvenuemodal{{ venue.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
-                <div class="modal-dialog modal-xl" role="document" style="max-width:800px !important;">
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <i class="fas fa-times"></i>
-                    </span>
-                    </button>
-                    <div class="modal-body text-center">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <!-- Portfolio Modal - Title -->
-                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ venue.venue_name }}</h2>
-                            <!-- Portfolio Modal - Text -->
-                            <p class="mb-5">Remove Venue?</p>
-                            <button class="btn btn-danger" href="" data-dismiss="modal">
-                            Remove
-                            </button>
-                        </div>
-                        </div>
+          <div class="portfolio-modal modal fade" id="delusermodal{{ venue.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document" style="max-width:800px !important;">
+              <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">
+                    <i class="fas fa-times"></i>
+                  </span>
+                </button>
+                <div class="modal-body text-center">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      <div class="col-lg-8">
+                        <!-- Portfolio Modal - Title -->
+                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ venue.venue_name }}</h2>
+                        <!-- Portfolio Modal - Text -->
+                        <p class="mb-5">Remove Venue?</p>
+                        <button class="btn btn-danger" href="#" data-dismiss="modal">
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                    </div>
+                  </div>
                 </div>
-                </div>
+              </div>
             </div>
-        {% endfor %}
+          </div>
+          {% endfor %}
 </header>
 
 
