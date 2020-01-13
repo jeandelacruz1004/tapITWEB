@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% block css %}
+{% endblock css %}
+
+{% block nav %}
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/home">TapIT</a>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-0 mx-lg-1">
+            {% if current_user.is_admin == True or current_user.is_faculty == True%}
+                <a class="nav-link" href="{{url_for('addvenue')}}">Create Venue</a>
+            {% else %}
+                <a class="nav-link" href=#>Venue</a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+{% endblock nav %}
+
+{% block content %}
+  <header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+    
+        
+
+        <!-- The slideshow -->
+       
+          <div class="carousel-item active"></div>
+         
+        </div>
+
+       
+      </div>
+    </div>
+  </header>
+  <div class="event-container">
+    <div class="eventcont">
+
+      {% for venue in venues%}
+      <div class="column">
+        <div class="card" style="width: 18rem; margin: 1rem;">
+          <img src='{{ image_file }}' class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ venue.venue_name }}</h5>
+            <p class="card-text">{{ venue.details }}</p>
+            <p class="card-text">{{ venue.college }}</p>
+            <p>{{ venue.capacity }}</p>
+            <p>{{ venue.equipment }}</p>
+           
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#venuemodal{{ venue.id }}">Venue Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  {% for venue in venues %}
+  <div class="portfolio-modal modal fade" id="venuemodal{{ venue.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ venue.venue_name }}</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" src="img/portfolio/circus.png" alt="">
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">{{ venue.college }}</p>
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

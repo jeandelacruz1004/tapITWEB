@@ -5,8 +5,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 # from flask_user import roles_required
 
 from tapit import app, db, bcrypt
-from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, EditEventForm
-from tapit.models import User, Event
+from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, AddVenueForm, EditEventForm
+from tapit.models import User, Event, Venue, College
 # from tapit.decorator import admin_login_required
 
 
@@ -226,7 +226,7 @@ def edit_events(id):
     
     return render_template('eventdata.html', title='Manage Events', events=events, users=users, form=form)
 
-
+    
 @app.route("/users/data/", methods=['GET', 'POST'])
 @login_required
 def manage_users():
@@ -301,3 +301,49 @@ def delete_event(id):
     return render_template('eventdata.html', title='Manage Events', event=event)
 
 
+
+@app.route("/venue/manage/", methods=['GET'])
+@login_required
+def manage_venue():
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    venues = Venue.query.all()
+    colleges = College.query.all()
+    return render_template('venue.html', venues=venues, colleges=colleges)
+    
+
+
+@app.route("/venue/<int:id>", methods=['GET'])
+@login_required
+def display_venue(id):
+    venues = Venue.query.filter_by(college=id)
+    colleges = College.query.all()
+    admins = Admin_acc.query.filter_by(college=id)
+    users = User.query.filter_by(type=1)
+    return render_template('displayvenue.html', venues=venues, admins=admins, users=users, colleges=colleges)
+
+
+@app.route("/venue/")
+@login_required
+def venue():
+    venues = Venue.query.all()
+    colleges = College.query.all()
+    return render_template('venue.html', venues=venues, colleges=colleges)
+    
+
+@app.route("/venue/create", methods=['GET', 'POST'])
+@login_required
+def addvenue():
+     if current_user.is_admin is True or current_user.is_faculty is True:
+        image_file = url_for('static', filename='img/banner' + Event.banner)
+        form = AddVenueForm()
+        if form.validate_on_submit():
+            if form.image_file.data:
+                picture_file = save_picture(form.image_file.data)
+            newvenue = Venue(venue_name=form.venue_name.data, college=form.college.data, capacity=form.capacity.data, rate=form.rate.data, equipment=form.equipment.data, image_file=picture_file)
+            db.session.add(newvenue)
+            db.session.commit()
+            flash('Venue created.','success')
+            return redirect(url_for('venue'))
+        return render_template('addvenue.html', form=form, image_file=image_file)
