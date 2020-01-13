@@ -8,6 +8,12 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+join_rel_table = db.Table('join_rel_table',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('event_id', db.Integer, db.ForeignKey('event.id')),
+    db.Column('dateJoined', db.DateTime, nullable=False, default=datetime.utcnow)
+)
+
 
 COLLEGENAMES = {
     'MSU-IIT': 1,
@@ -39,7 +45,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     rfID = db.Column(db.String(50), unique=True, nullable=True)
     first_name = db.Column(db.String(25), unique=True, nullable=False)
-    last_name = db.Column(db.String(25), unique=True, nullable=False)
+    last_name = db.Column(db.String(25), unique=False, nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
     contact = db.Column(db.String(20), unique=False, nullable=True)
@@ -65,6 +71,7 @@ class Event(db.Model):
     details = db.Column(db.Text, nullable=False)
     banner = db.Column(db.String(20), default='banner.jpg', nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    is_approved = db.Column(db.Boolean, default=False, nullable=False)
 
     def __repr__(self):
         return f"User('{self.title}', '{self.start_time}', '{self.end_time}', '{self.details}', '{self.banner}')"

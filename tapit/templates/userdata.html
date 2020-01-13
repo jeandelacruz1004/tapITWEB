@@ -18,7 +18,8 @@
                                 <img src='{{ url_for("static", filename="img/hamburger.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;">
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" type="button" href="{{url_for('disp_events')}}">Manage Events</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('manage_events')}}">Manage Events</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('req_event')}}">Event Requests</a>
                                 <a class="dropdown-item" type="button" href="#">Manage Users</a>
                                 <a class="dropdown-item" type="button" href="{{url_for('logout')}}">Logout</a>
                               </div>
@@ -113,13 +114,4 @@
     </div>
   </div>
   {% endfor %}
-<<<<<<< HEAD
 {% endblock %}
-=======
-
-{% endblock %}
-
-{% block script %}
-    <script src='{{ url_for("static", filename="js/sortsearch.js")}}'></script>
-{% endblock%}
->>>>>>> pleasecheck

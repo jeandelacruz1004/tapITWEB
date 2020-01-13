@@ -5,8 +5,9 @@ from flask_login import login_user, current_user, logout_user, login_required
 # from flask_user import roles_required
 
 from tapit import app, db, bcrypt
-from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, AddVenueForm, UpdateVenueForm
+from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, EditEventForm, AddVenueForm, UpdateVenueForm
 from tapit.models import User, Event, Venue, College
+from tapit.models import User, Event
 # from tapit.decorator import admin_login_required
 
 
@@ -164,10 +165,44 @@ def new_event():
 def manage_events():
     users = User.query.all()
     events = Event.query.all()
+    form = EditEventForm()
     if current_user.is_admin is not True:
         flash(f'You should be an administrator to access this page', 'warning')
         return redirect(url_for('landing'))
-    return render_template('eventdata.html', title='Manage Events', events=events, users=users)
+    return render_template('eventdata.html', title='Manage Events', events=events, users=users, form=form)
+
+
+@app.route("/events/requests", methods=['GET', 'POST'])
+@login_required
+def req_event():
+    users = User.query.all()
+    events = Event.query.all()
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    return render_template('eventrequest.html', title='Events Requests', events=events, users=users)
+
+@app.route("/event/<int:event_id>/bottomblockaction=bb<int:bottomBlock>/join", methods=["GET", "POST"])
+@login_required
+def join_event(event_id, bottomBlock):
+    if request.method == 'GET':
+        if current_user.numberOfLogins == 0:
+            return redirect(url_for("setup_acc"))
+
+        return redirect(url_for("event", event_id=event_id, bottomBlock=1))
+
+    elif request.method == 'POST': 
+        req = request.form['event_id']
+
+        lookRow = db.session.query(join_rel_table).filter(join_rel_table.c.user_id==current_user.id, join_rel_table.c.event_id==req).first()
+
+        if lookRow is None:
+            statement =  join_rel_table.insert().values(user_id=current_user.userId, event_id=req)
+
+            db.session.execute(statement)
+            db.session.commit()
+
+        return jsonify({'result' : 'success'})
 
 
 @app.route("/events/data/<int:id>", methods=['GET', 'POST'])
@@ -176,9 +211,25 @@ def edit_events(id):
     if current_user.is_admin is not True:
         flash(f'You should be an administrator to access this page', 'warning')
         return redirect(url_for('landing'))
-    users = User.query.all()
-    events = Event.query.filter_by(id=id).first()
-    return render_template('eventdata.html', title='Manage Events', events=events, users=users)
+        form = EditEventForm()
+        users = User.query.all()
+        events = Event.query.filter_by(id=id).first()
+        
+        if form.validate_on_submit():
+            event.title = form.title.data
+            event.start_time = form.start_time.data
+            event.end_time = form.end_time.data
+            event.details = form.details.data
+            db.session.commit()
+            flash('Event has been updated!', 'success')
+            return redirect(url_for('landing'))
+        elif request.method == 'GET':
+            form.title.data = event.title
+            form.start_time.data = event.start_time
+            form.end_time.data = event.end_time
+            form.details.data = event.details
+    
+    return render_template('eventdata.html', title='Manage Events', events=events, users=users, form=form)
 
     
 @app.route("/users/data/", methods=['GET', 'POST'])
@@ -191,6 +242,20 @@ def manage_users():
     form = UpdateAccountForm()
     return render_template('userdata.html', title='Manage Users', users=users, form=form)
 
+@app.route("/users/data/<int:id>/delete", methods=['GET','POST'])
+@login_required
+def delete_user(id):
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    else:
+        user = User.query.filter_by(id=id).first()
+        db.session.delete(user)
+        db.session.commit()
+        flash(f'User has been deleted!', 'success')
+        return redirect(url_for('manage_users'))
+    return render_template('userdata.html', title='Manage Users', user=user)
+
 
 @app.route("/users/data/<int:user_id>/delete", methods=['GET','POST'])
 @login_required
@@ -199,8 +264,53 @@ def delete_user(user_id):
         flash(f'You should be an administrator to access this page', 'warning')
         return redirect(url_for('landing'))
     else:
+<<<<<<< HEAD
         user = User.query.filter_by(id=user_id).first()
         db.session.delete(user)
         db.session.commit()
         flash(f'User {user.username} deleted!', 'success')
         return redirect(url_for('manage_users'))
+=======
+        users = User.query.filter_by(id=id).first()
+        form = UpdateAccountForm()
+        if form.validate_on_submit():
+            if form.image_file.data:
+                picture_file = save_picture(form.image_file.data)
+                users.image_file = picture_file
+            users.first_name = form.first_name.data
+            users.last_name = form.last_name.data
+            users.username = form.username.data
+            users.email = form.email.data
+            users.rfID = form.rfID.data
+            users.contact = form.contact.data
+
+            db.session.commit()
+            flash('Account has been updated!', 'success')
+            return redirect(url_for('landing'))
+
+        elif request.method == 'GET':
+            form.first_name.data = users.first_name
+            form.last_name.data = users.last_name
+            form.username.data = users.username
+            form.email.data = users.email
+            form.rfID.data = users.rfID
+            form.contact.data = users.contact
+        image_file = url_for('static', filename='img/profile/' + users.image_file)
+    return render_template('userdata.html', title='Manage Users', users=users, form=form, image_file=image_file)
+
+@app.route("/events/data/<int:id>/delete", methods=['GET','POST'])
+@login_required
+def delete_event(id):
+    if current_user.is_admin is not True:
+        flash(f'You should be an administrator to access this page', 'warning')
+        return redirect(url_for('landing'))
+    else:
+        event = Event.query.filter_by(id=id).first()
+        db.session.delete(event)
+        db.session.commit()
+        flash(f'Event has been deleted!', 'success')
+        return redirect(url_for('manage_events'))
+    return render_template('eventdata.html', title='Manage Events', event=event)
+
+
+>>>>>>> manageEvents

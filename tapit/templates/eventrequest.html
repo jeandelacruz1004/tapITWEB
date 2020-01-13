@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block nav %}
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger rainbow" href="#page-top">TapIT</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu
+               <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">My Events</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                         {% if current_user.is_admin == True %}
+                            <div class="btn-group" style="margin-top: 7px">
+                              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src='{{ url_for("static", filename="img/hamburger.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;">
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" type="button" href="{{url_for('manage_events')}}">Manage Events</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('req_event')}}">Event Requests</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('manage_users')}}">Manage Users</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('logout')}}">Logout</a>
+                              </div>
+                            </div>
+                         {% else %}
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{url_for('logout')}}"><img src='{{ url_for("static", filename="img/logout.png")}}' alt="Logout" style="width: 1.5rem; height: 1.5rem;"></a>
+                         {% endif %}
+
+                    </li>
+              </ul>
+        </div>
+    </div>
+{% endblock nav %}
+
+{% block content%}
+    <header class="masthead bg-primary text-white text-center" style="padding-bottom:4rem;">
+    <div class="container d-flex align-items-center flex-column">
+      {% for event in events %}
+      <div class="row">
+        <div class="card-deck">
+            <div class="card" style="width: 18rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" style="color:black">Event Name: {{ event.title}}</h5>
+                {% for user in users %}
+                {% if event.user_id == user.id %}
+                <p class="card-text" style="color:black">Request by: {{ user.first_name + " " + user.last_name }}</p>
+                {% endif %}
+                {% endfor %}
+                <p class="card-text" style="color:black">Details: {{ event.details }}</p>
+                <p class="card-text" style="color:black">Start Time: {{ event.start_time.strftime("%b %d,%Y-%H:%M") }}</p>
+                <p class="card-text" style="color:black">End Time: {{ event.end_time.strftime("%b %d,%Y-%H:%M") }}</p>
+                <p class="card-text" style="color:black">Date Created: {{ event.date_created.strftime("%b %d,%Y-%H:%M") }}</p>
+              </div>
+              <div style="text-align: center;">
+                  <button type="button" class="btn btn-success">Accept</button>
+                  <button type="button" class="btn btn-danger">Reject</button>
+              </div>
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+  </header>
+{% endblock %}

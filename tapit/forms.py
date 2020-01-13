@@ -60,7 +60,6 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose another one.')
-<<<<<<< HEAD
 class NewEventForm(FlaskForm):
     title = StringField('Event Title', validators=[DataRequired()])
     start_time = DateTimeLocalField('Start Time', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
@@ -68,6 +67,7 @@ class NewEventForm(FlaskForm):
     details = StringField('Event Details', validators=[DataRequired()])
     image_file = FileField('Event Banner', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Create Event')
+
 class AddVenueForm(FlaskForm):
     venue_name = StringField('Venue Name',validators=[DataRequired()])
     college = SelectField('College',id='college_id',validators=[DataRequired()], choices=[('1', 'MSU-IIT'), ('2', 'College of Engineering and Technology'), ('3', 'College of Science and Mathematics'), ('4', 'College of Education'), ('5', 'College of Arts and Social Sciences'), ('6', 'College of Business Administration and Accountancy'), ('7', 'College of Nursing'), ('8', 'College of Computer Studies'), ('9', 'Integrated Developmental School'), ('10', 'Premier Research Institute of Science and Mathematics')])
@@ -85,10 +85,6 @@ class UpdateVenueForm(FlaskForm):
     equipment = StringField('Equipment',validators=[Optional()])
     image_file = FileField('Venue Banner', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Update')
-
-    
-=======
-
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
@@ -110,4 +106,10 @@ class forms(FlaskForm):
     yearlevel = StringField('Year Level', validators=[DataRequired(), Length(min=1, max=15)])
     course_id = StringField('Course ID', validators=[DataRequired(), Length(min=1, max=100)])
     course = StringField('Course Name', validators=[DataRequired(), Length(min=1, max=100)])
->>>>>>> Attendance
+
+class EditEventForm(FlaskForm):
+    title = StringField('Event Title')
+    start_time = DateTimeLocalField('Start Time', format='%Y-%m-%dT%H:%M')
+    end_time = DateTimeLocalField('End Time', format='%Y-%m-%dT%H:%M')
+    details = StringField('Event Details')
+    update = SubmitField('Update Event')

@@ -21,6 +21,9 @@
                                 <a class="dropdown-item" type="button" href="{{url_for('disp_events')}}">Manage Events</a>
                                 <a class="dropdown-item" type="button" href="{{url_for('manage_venue')}}">Manage Venues</a>
                                 <a class="dropdown-item" type="button" href="#">Manage Users</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('disp_events')}}">Add Events</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('req_event')}}">Event Requests</a>
+                                <a class="dropdown-item" type="button" href="{{url_for('manage_users')}}">Manage Users</a>
                                 <a class="dropdown-item" type="button" href="{{url_for('logout')}}">Logout</a>
                               </div>
                             </div>
@@ -57,52 +60,102 @@
                 <td>{{ event.start_time.strftime("%b %d,%Y-%H:%M") }}</td>
                 <td>{{ event.end_time.strftime("%b %d,%Y-%H:%M") }}</td>
                 <td><a class="edit-item" type="button" data-toggle="modal" data-target="#eventmodal{{ event.id }}"><img src='{{ url_for("static", filename="img/edit.png")}}' alt="Edit" style="width: 1.5rem; height: 1.5rem;"></a></td>
-                <td><a class="edit-item" type="button" data-toggle="modal" data-target="#deleventmodal{{ event.id }}"><img src='{{ url_for("static", filename="img/delete.png")}}' alt="Edit" style="width: 1.5rem; height: 1.5rem;"></a></td>
+                <td><a class="edit-item" type="button" href="/events/data/{{ event.id }}/delete" onclick="return confirm('Are you sure you want to delete this event?')"><img src='{{ url_for("static", filename="img/delete.png")}}' alt="Del" style="width: 1.5rem; height: 1.5rem;"></a></td>
               </tr>
             {% endfor %}
             </table>
     </div>
   </header>
 
-
   {% for event in events %}
-  <div class="portfolio-modal modal fade" id="eventmodal{{ event.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+  <div class="modal fade" id="eventmodal{{ event.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width:70vw">
       <div class="modal-content">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">
-            <i class="fas fa-times"></i>
-          </span>
-        </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <!-- Portfolio Modal - Title -->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ event.title }}</h2>
-                <!-- Icon Divider -->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon">
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <div class="divider-custom-line"></div>
+        <div class="modal-header text-center">
+          <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Edit Event</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <i class="fas fa-times"></i>
+            </span>
+          </button>
+        </div>
+        <div class="modal-login mx-3">
+          <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="col">
+                        {{ form.title.label }}
+                        <div class="form-reg">
+                            {% if form.title.errors %}
+                                {{ form.title(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                     {% for error in form.title.errors %}
+                                        <span>{{ error }}</span>
+                                     {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.title(class="form-control", placeholder="Event Title") }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col">
+                         {{ form.start_time.label }}
+                         <div class="form-reg">
+                            {% if form.start_time.errors %}
+                            {{ form.start_time(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                 {% for error in form.start_time.errors %}
+                                    <span>{{ error }}</span>
+                                 {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form.start_time(class="form-control", placeholder="Start Time") }}
+                            {% endif %}
+                         </div>
+                    </div>
                 </div>
-                <!-- Portfolio Modal - Image -->
-                <img class="img-fluid rounded mb-5" src="img/portfolio/circus.png" alt="">
-                <!-- Portfolio Modal - Text -->
-                <p class="mb-5">{{ event.details }}</p>
-                <button class="btn btn-warning" href="#" data-dismiss="modal">
-                  Update
-                </button>
-              </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form.end_time.label }}
+                        <div class="form-reg">
+                            {% if form.end_time.errors %}
+                                {{ form.end_time(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                     {% for error in form.end_time.errors %}
+                                        <span>{{ error }}</span>
+                                     {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.end_time(class="form-control", placeholder="End Time") }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col">
+                        {{ form.details.label }}
+                        <div class="form-reg">
+                            {% if form.details.errors %}
+                                {{ form.details(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                     {% for error in form.details.errors %}
+                                        <span>{{ error }}</span>
+                                     {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.details(class="form-control", placeholder="Event Details") }}
+                            {% endif %}
+                        </div>
+                    </div>
+            <div class="row" style="margin-bottom: 2rem;">
+                <div class="col">
+                  {{ form.update(class="btn btn-primary", id="update")}}
+                </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  {% endfor %}
+    {% endfor %}
 
   {% for event in events %}
   <div class="portfolio-modal modal fade" id="deleventmodal{{ event.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
