@@ -75,4 +75,14 @@ class AddVenueForm(FlaskForm):
     equipment = StringField('Equipment',validators=[Optional()])
     image_file = FileField('Venue Banner', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Add Venue')
+
+class UpdateVenueForm(FlaskForm):
+    venue_name = StringField('Venue Name',validators=[DataRequired()])
+    college = SelectField('College',id='college_id',validators=[DataRequired()], choices=[('1', 'MSU-IIT'), ('2', 'College of Engineering and Technology'), ('3', 'College of Science and Mathematics'), ('4', 'College of Education'), ('5', 'College of Arts and Social Sciences'), ('6', 'College of Business Administration and Accountancy'), ('7', 'College of Nursing'), ('8', 'College of Computer Studies'), ('9', 'Integrated Developmental School'), ('10', 'Premier Research Institute of Science and Mathematics')])
+    capacity = IntegerField('Capacity',validators=[Optional()])
+    details = StringField('Details', validators=[DataRequired()])
+    equipment = StringField('Equipment',validators=[Optional()])
+    image_file = FileField('Venue Banner', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    submit = SubmitField('Update')
+
     

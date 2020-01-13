@@ -47,37 +47,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6" display="flex">
-                <div class="cards" style="width: 18rem; height:31rem;  margin-bottom: 1rem;">
-                    <img class="card-img-top" src='{{ url_for("static", filename="img/CASS.png")}}' alt="Card image cap">
-                    
-                    <div class="card-body">
-                        <h5 class="card-title">CASS</h5>
-                        <p class="card-text"></p>
-                    </div>
-                        <ul class="list-group list-group-flush">
-                            <i class="fa fa-map-marker" style="font-size:16px; text-align:left">  MSU-IIT CAMPUS, Andres Bonifacio Ave, Iligan City, 9200 Lanao del Norte</i><br>
-                            <i class="fa fa-clock" style="font-size:16px; text-align:left">  8:00 am - 5:00 pm</i><br>
-                            <i class="fa fa-calendar" style="font-size:16px; text-align:left"> January 10,2020</i>
-                        </ul>
-                    <div class="card-body" >
-                        <a href="#" class=" btn btn-primary"style="height:500px;width:200px" >Edit</a>
-                        <a href="#" class=" btn btn-danger" style="height:200px;width:200px" >Delete</a>
-                    </div>
-                </div>
-            </div>
+            
             <div class="col-sm-6" display="flex">
                 <div class="cards" style="width: 18rem; height:31rem; margin-bottom: 1rem;">
-                    <img class="card-img-top" src='{{ url_for("static", filename="img/CASS.png")}}' alt="Card image cap">
+                    <img class="card-img-top" src='{{ url_for("static", filename="img/SCS.png")}}' alt="Card image cap">
                     
                     <div class="card-body">
-                        <h5 class="card-title">CASS</h5>
+                        <h5 class="card-title">CCS-Faculty Lounge</h5>
                         <p class="card-text"></p>
                     </div>
                         <ul class="list-group list-group-flush">
-                            <i class="fa fa-map-marker" style="font-size:16px; text-align:left">  MSU-IIT CAMPUS, Andres Bonifacio Ave, Iligan City, 9200 Lanao del Norte</i><br>
+                            <i class="fa fa-map-marker" style="font-size:16px; text-align:left">  CCS</i><br>
                             <i class="fa fa-clock" style="font-size:16px; text-align:left">  8:00 am - 5:00 pm</i><br>
-                            <i class="fa fa-calendar" style="font-size:16px; text-align:left"> January 10,2020</i>
+                            <i class="fa fa-users" style="font-size:16px; text-align:left"> 100 persons</i><br>
+                            <i class="fa fa-wrench" style="font-size:16px; text-align:left"> Chairs, Microphone, Tables</i>
                         </ul>
                     <div class="card-body" >
                         <a href="#" class=" btn btn-primary"style="height:500px;width:200px" >Edit</a>
@@ -87,6 +70,7 @@
             </div>
 
             {% for venue in venues%}
+            {% for college in colleges %}
                 <div class="col-sm-6" display="flex">
                     <div class="cards" style="width: 18rem; height:31rem; margin-bottom: 1rem;">
                         <img class="card-img-top" src='{{ url_for("static", filename="img/IIT.jpg")}}' alt="Card image cap">
@@ -96,20 +80,157 @@
                             <p class="card-text"></p>
                         </div>
                             <ul class="list-group list-group-flush">
-                                <i class="fa fa-map-marker" style="font-size:16px; text-align:left"> {{ venue.college }}</i><br>
+                                <i class="fa fa-map-marker" style="font-size:16px; text-align:left"> {{ college.name }}</i><br>
                                 <i class="fa fa-clock" style="font-size:16px; text-align:left">  8:00 am - 5:00 pm</i><br> 
                                 <i class="fa fa-users" style="font-size:16px; text-align:left"> {{ venue.capacity }}</i><br> 
                                 <i class="fa fa-wrench" style="font-size:16px; text-align:left"> {{ venue.equipment }}</i>
                             </ul>
                         <div class="card-body" >
-                            <a href="{{url_for('addvenue')}}" class=" btn btn-primary"style="height:500px;width:200px">Edit</a>
-                            <a href="#" class=" btn btn-danger" style="height:200px;width:200px" >Delete</a>
+                            <a  class=" btn btn-primary"style="height:500px;width:200px" data-toggle="modal" data-target="#modalUpdate{{venue.id}}">Edit</a>
+                            <a  class=" btn btn-danger" style="height:200px;width:200px" data-toggle="modal" data-target="#delvenuemodal{{ venue.id }}">Delete</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-  
+            {% endfor %}
         </div>
+
+        {% for venue in venues%}
+        <div class="modal fade" id="modalUpdate{{venue.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width:70vw">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Venue Information</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                      <i class="fas fa-times"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="modal-login mx-3">
+                  <form method= 'POST' action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }} 
+                    <div class="row">
+                        <div class="col">
+                            {{ form.venue_name.label }}
+                            <div class="form-reg">
+                                {% if form.venue_name.errors %}
+                                    {{ form.venue_name(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                         {% for error in form.venue_name.errors %}
+                                            <span>{{ error }}</span>
+                                         {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.venue_name(class="form-control", placeholder="Venue") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                            <div class="col">
+                                 {{ form.details.label }}
+                                 <div class="form-reg">
+                                    {% if form.details.errors %}
+                                    {{ form.details(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                         {% for error in form.details.errors %}
+                                            <span>{{ error }}</span>
+                                         {% endfor %}
+                                    </div>
+                                    {% else %}
+                                        {{ form.details(class="form-control", placeholder="Details") }}
+                                    {% endif %}
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{ form.college.label }}
+                                <div class="form-reg">
+                                    {% if form.college.errors %}
+                                        {{ form.college(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                             {% for error in form.college.errors %}
+                                                <span>{{ error }}</span>
+                                             {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.college(class="form-control", placeholder="College") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col">
+                                {{ form.capacity.label }}
+                                <div class="form-reg">
+                                    {% if form.capacity.errors %}
+                                        {{ form.capacity(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                             {% for error in form.capacity.errors %}
+                                                <span>{{ error }}</span>
+                                             {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.capacity(class="form-control", placeholder="Capacity") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{ form.equipment.label }}
+                                <div class="form-reg">
+                                    {% if form.equipment.errors %}
+                                        {{ form.equipment(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                             {% for error in form.equipment.errors %}
+                                                <span>{{ error }}</span>
+                                             {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.equipment(class="form-control", placeholder="Equipment") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 2rem;">
+                            <div class="col">
+                              {{ form.submit(class="btn btn-primary", id="submit")}}
+                            </div>
+                        </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {%endfor%}
+
+          {% for venue in venues %}
+            <div class="portfolio-modal modal fade" id="delvenuemodal{{ venue.id }}" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document" style="max-width:800px !important;">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    </button>
+                    <div class="modal-body text-center">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <!-- Portfolio Modal - Title -->
+                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ venue.venue_name }}</h2>
+                            <!-- Portfolio Modal - Text -->
+                            <p class="mb-5">Remove Venue?</p>
+                            <button class="btn btn-danger" href="" data-dismiss="modal">
+                            Remove
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
 </header>
 
 

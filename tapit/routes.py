@@ -5,7 +5,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 # from flask_user import roles_required
 
 from tapit import app, db, bcrypt
-from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, AddVenueForm
+from tapit.forms import LoginForm, RegistrationForm, UpdateAccountForm, NewEventForm, AddVenueForm, UpdateVenueForm
 from tapit.models import User, Event, Venue, College
 # from tapit.decorator import admin_login_required
 
@@ -234,7 +234,7 @@ def manage_venue():
     
 
 
-@app.route("/venue/<int:id>", methods=['GET'])
+@app.route("/venue/<int:id>", methods=['GET', 'POST'])
 @login_required
 def display_venue(id):
     venues = Venue.query.filter_by(college=id)
@@ -245,13 +245,15 @@ def display_venue(id):
 
 
 
-@app.route("/venue/")
+@app.route("/venue/", methods=['GET', 'POST'])
 @login_required
 def disp_venue():
     image_file = url_for('static', filename='img/banner' + Event.banner)
     venues = Venue.query.all()
-    colleges = College.query.all()
-    return render_template('venue.html', venues=venues, colleges=colleges, image_file=image_file)
+    form = UpdateVenueForm()
+    colleges = College.query.filter_by(id = Venue.college_id)
+
+    return render_template('venue.html', venues=venues, colleges=colleges, form=form, image_file=image_file)
     
 
 @app.route("/venue/create", methods=['GET', 'POST'])
@@ -271,10 +273,6 @@ def addvenue():
                        
                         )
             print(newvenue.college_id)
-
-            if form.image_file.data:
-                picture_file = save_picture(form.image_file.data)
-                newvenue.image_file = picture_file
             db.session.add(newvenue)
             db.session.commit()
             flash('Venue created.','success')
@@ -284,12 +282,44 @@ def addvenue():
         return redirect(url_for('landing'))
     return render_template('addvenue.html', form=form, image_file=image_file)
 
-@app.route("/venue/edit/<int:id>", methods=['GET', 'POST'])
+@app.route("/venues/data/<int:id>/edit", methods=['GET', 'POST'])
 @login_required
-def edit_venue(id):
+def update_venue(id):
     if current_user.is_admin is not True:
         flash(f'You should be an administrator to access this page', 'warning')
         return redirect(url_for('landing'))
-    users = User.query.all()
-    venues = Venue.query.filter_by(id=id).first()
-    return render_template('edit_venue.html', title='Manage Venue', venues=venues, users=users)
+    else:
+        venues = Venue.query.filter_by(id=id).first()
+        form = UpdateVenueForm()
+        if form.validate_on_submit():
+    
+            print('valid')
+            venues.venue_name = form.venue_name.data
+            venues.details = form.details.data
+            venues.college_id = form.college.data
+            venues.capacity = form.capacity.data
+            venues.equipment = form.equipment.data
+            db.session.commit()
+            flash('Venue has been updated!', 'success')
+            return redirect(url_for('landing'))
+        elif request.method == 'GET':
+            form.venue_name.data = venues.venue_name
+            form.details.data = venues.details
+            form.college.data = venues.college_id
+            form.capacity.data = venues.capacity
+            form.equipment.data = venues.equipment
+           
+    return render_template('venue.html', title='Manage Venue', venues=venues, form=form)
+
+@app.route("/venue/deletevenue/<int:id>", methods=['GET','POST'])
+@login_required
+def deletevenue(id):
+    venue = Venue.query.filter_by(id=id).first()
+    if venue != None:
+        db.session.delete(venue)
+        db.session.commit()
+        flash('Venue has been deleted.')
+    else:
+        flash('No such venue exists!')
+    return redirect(url_for('manage_venue'))
+
