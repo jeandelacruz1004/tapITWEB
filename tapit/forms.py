@@ -60,6 +60,7 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose another one.')
+<<<<<<< HEAD
 class NewEventForm(FlaskForm):
     title = StringField('Event Title', validators=[DataRequired()])
     start_time = DateTimeLocalField('Start Time', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
@@ -86,3 +87,27 @@ class UpdateVenueForm(FlaskForm):
     submit = SubmitField('Update')
 
     
+=======
+
+
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')
+
+
+class SearchForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')
+
+
+class forms(FlaskForm):
+    idnumber = StringField('ID Number', validators=[DataRequired(), Length(min=1, max=15)])
+    firstname = StringField('First Name', validators=[DataRequired(), Length(min=1, max=40)])
+    lastname = StringField('Last Name', validators=[DataRequired(), Length(min=1, max=40)])
+    gender = StringField('Gender', validators=[DataRequired(), Length(min=1, max=15)])
+    yearlevel = StringField('Year Level', validators=[DataRequired(), Length(min=1, max=15)])
+    course_id = StringField('Course ID', validators=[DataRequired(), Length(min=1, max=100)])
+    course = StringField('Course Name', validators=[DataRequired(), Length(min=1, max=100)])
+>>>>>>> Attendance

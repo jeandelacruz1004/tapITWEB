@@ -109,6 +109,10 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.route("/attendance")
+def attendance():
+    
+    return render_template("attendance.html")
 
 @app.route("/events/")
 @login_required

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block nav %}
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">TapIT</a>
+    <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mx-0 mx-lg-1">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Events</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock nav %}
+
+{% from "_formhelper.html" import render_field %}
+{% block content %}
+<h1 class="container" style="align-content: center; ">Add Student</h1>
+<br>
+  <div class="container" style="align-content: center;">
+        
+    <form method="POST" action="{{ url_for('addparticipant') }}">  
+      {{ form.csrf_token }}
+      <br>
+      <br>
+        <div>
+        {{ render_field(form.idnumber, placeholder=form.idnumber.label.text, class="form-control input-sm form-control-lg is-invalid", style="height: 40px; width: 65%;") }}
+        </div>
+        <div>
+        {{ render_field(form.firstname, placeholder=form.firstname.label.text, class="form-control input-sm form-control-lg is-invalid", style="height: 40px; width: 65%;") }}
+        </div>
+        <div>
+        {{ render_field(form.lastname, placeholder=form.lastname.label.text, class="form-control input-sm form-control-lg is-invalid", style="height: 40px; width: 65%;") }}
+        </div>
+        <div>
+        {{ render_field(form.gender, placeholder=form.gender.label.text, class="form-control input-sm form-control-lg is-invalid", style="height: 40px; width: 65%;") }}
+        </div>
+        <div>
+        {{ render_field(form.course_id, placeholder=form.course_id.label.text, class="form-control input-sm form-control-lg is-invalid", style="height: 40px; width: 65%;") }} 
+        </div>
+        <div>
+        {{ render_field(form.yearlevel, placeholder=form.yearlevel.label.text, class="form-control input-sm form-control-lg is-invalid", style="height: 40px; width: 65%;") }}
+        </div>
+<br>
+        <input type="submit" value="Submit" class="btn btn-primary">
+        <a href="/" class="btn btn-default">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

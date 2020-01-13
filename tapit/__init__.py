@@ -8,6 +8,7 @@ from flask_login import LoginManager
 key = secrets.token_hex(16)
 
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost:5432/tapITWEB'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
